@@ -1,3 +1,4 @@
 flask/model3.h5
-flask/ipynb_checkpoints
+flask/.ipynb_checkpoints
 flask/venv
+node_modules
