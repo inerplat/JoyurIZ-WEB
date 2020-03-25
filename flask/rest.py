@@ -22,7 +22,7 @@ import face_recognition as FR
 import magic
 
 app = flask.Flask(__name__)
-predictList = ['김채원', '최예나', '조유리']
+predictList = ['Chaewon', 'Yena', 'Yuri']
 def prepare_image(image, target):
     npImage = numpy.array(image)
     print(np.shape(npImage))
@@ -35,9 +35,7 @@ def prepare_image(image, target):
     faceImage = cv2.resize(crop, target, interpolation = cv2.INTER_CUBIC)
     x = np.expand_dims(img_to_array(faceImage), axis=0)
     result = np.vstack([x])
-
-
-    return result
+    return (result, T, R, B, L)
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -57,9 +55,7 @@ def predict():
                 return flask.jsonify(data)
             else:
                 image = Image.open(io.BytesIO(image)).convert('RGB')
-
-
-            image = prepare_image(image, target=(256, 256))
+            image, T, R, B, L = prepare_image(image, target=(256, 256))
             if image is False:
                 return flask.jsonify(data)
             print(np.shape(image))
@@ -68,6 +64,10 @@ def predict():
             preds = model.predict_classes(image)
             print(preds)
             data["predictions"] = predictList[preds[0]]
+            data['top'] = T
+            data['right'] = R
+            data['bottom'] = B
+            data['left'] = L
             data["success"] = True
     return flask.jsonify(data)
 
