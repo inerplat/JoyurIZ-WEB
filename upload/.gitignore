@@ -1,5 +1,6 @@
 server/userUpload
-
+server/DB
+server/.env
 # dependencies
 /node_modules
 /.pnp
