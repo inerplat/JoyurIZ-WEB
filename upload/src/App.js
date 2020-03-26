@@ -1,84 +1,80 @@
 import axios from 'axios'; 
-  
+import ImageUploader from "react-images-upload";
 import React,{Component} from 'react'; 
   
-class App extends Component { 
-   
-    state = { 
-      selectedFile: null
-    }; 
-     
-    // On file select (from the pop up) 
-    onFileChange = event => { 
-      this.setState({ selectedFile: event.target.files[0] }); 
-    }; 
-     
-    // On file upload (click the upload button) 
-    onFileUpload = () => { 
-     
-      const formData = new FormData(); 
+class App extends Component {
+    constructor(props) {
+    super(props);
+    this.state = { predictions:[] };
+    this.onDrop = this.onDrop.bind(this);
+  }
+  onDrop(pictureFiles, pictureDataURLs) {
+
+    var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d"); 
+
+    console.log(this)
+    if(pictureFiles.length > 0){
+      const formData = new FormData();
       formData.append( 
         "image", 
-        this.state.selectedFile, 
-        this.state.selectedFile.name 
+        pictureFiles[0],
+        pictureFiles[0].name
       );
-      console.log(this.state.selectedFile); 
-     
       axios.post("http://localhost:8080/", formData)
       .then(function (response) {
-         console.log(response)
+        console.log(response)
+
+        var img = document.getElementById("preview");
+        canvas.width  = img.width;
+        canvas.height = img.height;
+        console.log(img.width, img.height);
+        var scale = Math.max(canvas.width / img.width, canvas.height / img.height);
+        var x = (canvas.width / 2) - (img.width / 2) * scale;
+        var y = (canvas.height / 2) - (img.height / 2) * scale;
+
+        ctx.lineWidth = "4";
+        ctx.strokeStyle = "red";
+        var {top , bottom, left, right} = response.data
+        console.log(top , bottom, left, right)
+        ctx.rect(left*scale, top*scale, (right-left)*scale, (bottom-top)*scale);
+        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+        ctx.stroke();
+        this.setState({
+          predictions: [response.data.predictions]
+        })
       })
       .catch(function (error) { 
         console.log(error);
       });
-    }; 
-     
-    // File content to be displayed after 
-    // file upload is complete 
-    fileData = () => { 
-     
-      if (this.state.selectedFile) { 
-          
-        return ( 
-          <div> 
-            <h2>File Details:</h2> 
-            <p>File Name: {this.state.selectedFile.name}</p> 
-            <p>File Type: {this.state.selectedFile.type}</p> 
-            <p> 
-              Last Modified:{" "} 
-              {this.state.selectedFile.lastModifiedDate.toDateString()} 
-            </p> 
-          </div> 
-        ); 
-      } else { 
-        return ( 
-          <div> 
-            <br /> 
-            <h4>Choose before Pressing the Upload button</h4> 
-          </div> 
-        ); 
-      } 
-    }; 
-     
-    render() {  
-      return ( 
-        <div> 
-            <h1> 
-              GeeksforGeeks 
-            </h1> 
-            <h3> 
-              File Upload using React! 
-            </h3> 
-            <div> 
-                <input type="file" name="image" onChange={this.onFileChange} /> 
-                <button onClick={this.onFileUpload}> 
-                  Upload! 
-                </button> 
-            </div> 
-          {this.fileData()} 
-        </div> 
-      ); 
-    } 
-  } 
+      console.log("onDrop",pictureFiles)
+    }
+  }
+  onFileUpload = () => { 
+    
+  }; 
+  render() {
+    console.log(typeof(this.state.predictions))
+   /* if (this.state.pictures.length > 0) {
+      let renderItems = this.state.pictures.map(function(item, i) {
+        return <li key={i}>{item.title}</li>
+      });
+    }*/
+    return (
+      <div>
+        <ImageUploader
+          withIcon={true}
+          buttonText="Choose images"
+          onChange={this.onDrop}
+          imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+          maxFileSize={10242880}
+          singleImage={true}
+          withPreview={true}
+        />
+
+      </div>
+    );
+  }
+}
   
   export default App; 
