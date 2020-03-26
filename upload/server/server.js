@@ -69,8 +69,8 @@ var upload = multer({
 });
 const Image = mongoose.model('Image', schema.imageSchema);
 
-app.post('/' , upload.single('image'), (req, res)=>{
-  fileName = req.file['filename']
+app.post('/' , upload.single('image'), (requset, response)=>{
+  fileName = requset.file['filename']
   console.log(fileName)
   md5File('userUpload/'+fileName)
   .then(hash => {
@@ -79,26 +79,37 @@ app.post('/' , upload.single('image'), (req, res)=>{
       if(res.length===0){
         doRequest('http://127.0.0.1:5000/predict', 5000, 'userUpload/'+fileName)
         .then(result=>{
-          console.log(result, result["top"])
-          Image.create({
+          var imageInfo = {
             hash:         hash,
-            predictions:   result["predictions"],
+            predictions:  result["predictions"],
             top:          result["top"],
             bottom:       result["bottom"],
             left:         result["left"],
             right:        result["right"],
             path:         'userUpload/' + fileName
-          })
+          }
+          Image.create(imageInfo)
+          response.json(imageInfo)
         })
-        
       }
       else{
+        var imageInfo = {
+          hash:         res[0].hash,
+          predictions:  res[0].predictions,
+          top:          res[0].top,
+          bottom:       res[0].bottom,
+          left:         res[0].left,
+          right:        res[0].right,
+          path:         'userUpload/' + fileName
+        }
+        console.log(imageInfo)
+        response.json(imageInfo)
         console.log("delete")
         fs.unlink('userUpload/'+fileName, (err) => {
           if (err) {
             console.error(err)
           }
-       })
+        })
       }
     
     });
