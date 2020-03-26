@@ -17,6 +17,7 @@
     "mysql": "2.18.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-flip-move": "^2.1.2",
     "react-images-upload": "^1.2.8",
     "react-scripts": "3.4.1",
     "request": "^2.88.2",
