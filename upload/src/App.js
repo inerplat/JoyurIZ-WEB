@@ -8,12 +8,10 @@ class App extends Component {
     this.state = { predictions:[] };
     this.onDrop = this.onDrop.bind(this);
   }
-  onDrop(pictureFiles, pictureDataURLs) {
-
+  async onDrop(pictureFiles, pictureDataURLs) {
     var canvas = document.getElementById("myCanvas");
-            var ctx = canvas.getContext("2d"); 
+    var ctx = canvas.getContext("2d"); 
 
-    console.log(this)
     if(pictureFiles.length > 0){
       const formData = new FormData();
       formData.append( 
@@ -21,32 +19,33 @@ class App extends Component {
         pictureFiles[0],
         pictureFiles[0].name
       );
-      axios.post("http://localhost:8080/", formData)
-      .then(function (response) {
-        console.log(response)
+      var imagePost = async () =>{
+        try{
+          return await axios.post("http://localhost:8080/", formData)
+        } catch(error){
+          console.log(error)
+        }
+      }
+      var response = await imagePost()
+      console.log(response)
+      var img = document.getElementById("preview");
+      canvas.width  = img.width;
+      canvas.height = img.height;
+      console.log(img.width, img.height);
+      var scale = Math.max(canvas.width / img.width, canvas.height / img.height);
+      var x = (canvas.width / 2) - (img.width / 2) * scale;
+      var y = (canvas.height / 2) - (img.height / 2) * scale;
 
-        var img = document.getElementById("preview");
-        canvas.width  = img.width;
-        canvas.height = img.height;
-        console.log(img.width, img.height);
-        var scale = Math.max(canvas.width / img.width, canvas.height / img.height);
-        var x = (canvas.width / 2) - (img.width / 2) * scale;
-        var y = (canvas.height / 2) - (img.height / 2) * scale;
-
-        ctx.lineWidth = "4";
-        ctx.strokeStyle = "red";
-        var {top , bottom, left, right} = response.data
-        console.log(top , bottom, left, right)
-        ctx.rect(left*scale, top*scale, (right-left)*scale, (bottom-top)*scale);
-        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
-        ctx.stroke();
-        this.setState({
-          predictions: [response.data.predictions]
-        })
+      ctx.lineWidth = "4";
+      ctx.strokeStyle = "lightgreen";
+      var {top , bottom, left, right} = response.data
+      console.log(top , bottom, left, right)
+      ctx.rect(left*scale, top*scale, (right-left)*scale, (bottom-top)*scale);
+      ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+      ctx.stroke();
+      this.setState({
+        predictions: [response.data.predictions]
       })
-      .catch(function (error) { 
-        console.log(error);
-      });
       console.log("onDrop",pictureFiles)
     }
   }
@@ -54,12 +53,8 @@ class App extends Component {
     
   }; 
   render() {
-    console.log(typeof(this.state.predictions))
-   /* if (this.state.pictures.length > 0) {
-      let renderItems = this.state.pictures.map(function(item, i) {
-        return <li key={i}>{item.title}</li>
-      });
-    }*/
+    console.log(this.state.predictions)
+
     return (
       <div>
         <ImageUploader
@@ -71,7 +66,7 @@ class App extends Component {
           singleImage={true}
           withPreview={true}
         />
-
+        <div>{this.state.predictions[0]}</div>
       </div>
     );
   }
