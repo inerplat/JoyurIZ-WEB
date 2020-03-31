@@ -1,7 +1,7 @@
 import axios from 'axios'; 
 import ImageUploader from "react-images-upload";
 import React,{Component} from 'react'; 
-  
+import './upload.css';
 class App extends Component {
     constructor(props) {
     super(props);
@@ -67,10 +67,31 @@ class App extends Component {
 
     return (
       <div>
-        <input type="file" accept="image/*" onChange={this.onDrop} />
+        
         <img id="preview" style={{display:'none'}}/>
-        <canvas id="myCanvas" style={{width:'100%'}}></canvas>
-        <div>{this.state.predictions[0]}</div>
+        
+
+
+        <div class="upload">
+            <div class="upload-files">
+              <header>
+              <p>
+              <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+              <span class="up">조유리즈</span>
+              <span class="load">판별기</span>
+              </p>
+            </header>
+            <div class="body" id="drop">
+                <input type="file" accept="image/*" onChange={this.onDrop} />           
+            </div>
+            <div style={{'text-align':'center'}}>
+            <canvas id="myCanvas" style={{width:'70%'}}></canvas>
+            </div>
+            <div style={{'text-align':'center'}}>{this.state.predictions[0]}</div>
+            </div>
+        </div>
+
+        
       </div>
     );
   }
