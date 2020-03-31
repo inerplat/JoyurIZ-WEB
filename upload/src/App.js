@@ -1,14 +1,24 @@
 import axios from 'axios'; 
 import ImageUploader from "react-images-upload";
 import React,{Component} from 'react'; 
-  
+import './upload.css';
 class App extends Component {
     constructor(props) {
     super(props);
     this.state = { predictions:[] };
     this.onDrop = this.onDrop.bind(this);
   }
-  async onDrop(pictureFiles, pictureDataURLs) {
+  async loadFile(event){
+    var reader = new FileReader();
+    reader.onload = function(){
+      var output = document.getElementById('preview');
+      output.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+    return event.target.files
+  }
+  async onDrop(event) {
+    var pictureFiles = await this.loadFile(event)
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d"); 
 
@@ -57,16 +67,31 @@ class App extends Component {
 
     return (
       <div>
-        <ImageUploader
-          withIcon={true}
-          buttonText="Choose images"
-          onChange={this.onDrop}
-          imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-          maxFileSize={10242880}
-          singleImage={true}
-          withPreview={true}
-        />
-        <div>{this.state.predictions[0]}</div>
+        
+        <img id="preview" style={{display:'none'}}/>
+        
+
+
+        <div class="upload">
+            <div class="upload-files">
+              <header>
+              <p>
+              <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+              <span class="up">조유리즈</span>
+              <span class="load">판별기</span>
+              </p>
+            </header>
+            <div class="body" id="drop">
+                <input type="file" accept="image/*" onChange={this.onDrop} />           
+            </div>
+            <div style={{'text-align':'center'}}>
+            <canvas id="myCanvas" style={{width:'70%'}}></canvas>
+            </div>
+            <div style={{'text-align':'center'}}>{this.state.predictions[0]}</div>
+            </div>
+        </div>
+
+        
       </div>
     );
   }
