@@ -8,7 +8,17 @@ class App extends Component {
     this.state = { predictions:[] };
     this.onDrop = this.onDrop.bind(this);
   }
-  async onDrop(pictureFiles, pictureDataURLs) {
+  async loadFile(event){
+    var reader = new FileReader();
+    reader.onload = function(){
+      var output = document.getElementById('preview');
+      output.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+    return event.target.files
+  }
+  async onDrop(event) {
+    var pictureFiles = await this.loadFile(event)
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d"); 
 
@@ -57,15 +67,9 @@ class App extends Component {
 
     return (
       <div>
-        <ImageUploader
-          withIcon={true}
-          buttonText="Choose images"
-          onChange={this.onDrop}
-          imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-          maxFileSize={10242880}
-          singleImage={true}
-          withPreview={true}
-        />
+        <input type="file" accept="image/*" onChange={this.onDrop} />
+        <img id="preview" style={{display:'none'}}/>
+        <canvas id="myCanvas" style={{width:'100%'}}></canvas>
         <div>{this.state.predictions[0]}</div>
       </div>
     );
