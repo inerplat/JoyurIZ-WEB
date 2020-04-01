@@ -12,14 +12,13 @@ body {
   height: 100%;
   text-align: center;
 }
-
 body {
   padding: 2rem;
   background: #f8f8f8;
 }
 
 h2 {
-  font-family: "Roboto", sans-serif;
+  font-family: 'NanumBarunGothic', "Roboto", sans-serif;
   font-size: 26px;
   line-height: 1;
   color: #454cad;
@@ -27,7 +26,7 @@ h2 {
 }
 
 p {
-  font-family: "Roboto", sans-serif;
+  font-family: 'NanumBarunGothic', "Roboto", sans-serif;
   font-size: 18px;
   color: #5f6982;
 }
@@ -148,7 +147,7 @@ p {
   display: inline-block;
   margin: 0.5rem 0.5rem 1rem 0.5rem;
   clear: both;
-  font-family: inherit;
+  font-family: 'NanumBarunGothic', inherit;
   font-weight: 700;
   font-size: 14px;
   text-decoration: none;
