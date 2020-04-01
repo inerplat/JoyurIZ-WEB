@@ -28,8 +28,8 @@ def prepare_image(image, target):
     print(np.shape(npImage))
     faces = FR.face_locations(npImage, number_of_times_to_upsample=0, model="hog")
     if len(faces) != 1 :
-        print('fail to find : multi faces')
-        return False
+        print('fail to find')
+        return (False, 0, 0, 0, 0)
     T, R, B, L = faces[0]
     crop  = npImage[T:B, L:R]
     faceImage = cv2.resize(crop, target, interpolation = cv2.INTER_CUBIC)
