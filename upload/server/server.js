@@ -68,60 +68,70 @@ var upload = multer({
       }
 });
 const Image = mongoose.model('Image', schema.imageSchema);
+app.post('/userTrain', (request, response)=>{
 
-app.post('/' , upload.single('image'), (requset, response)=>{
+})
+app.post('/imageUpload' , upload.single('image'), (requset, response)=>{
   fileName = requset.file['filename']
   console.log(fileName)
-  md5File('userUpload/'+fileName)
-  .then(hash => {
-    Image.find({hash:hash},(err,res)=>{
-      console.log(res);
-      if(res.length===0){
-        doRequest('http://127.0.0.1:5000/predict', 5000, 'userUpload/'+fileName)
-        .then(result=>{
+  hash = md5File.sync('userUpload/'+fileName)
+
+  Image.find({hash:hash},(err,res)=>{
+    console.log(res);
+    if(res.length===0){
+      doRequest('http://127.0.0.1:5000/predict', 5000, 'userUpload/'+fileName)
+      .then(result=>{
+        if(result['success'] == true){
           var imageInfo = {
+            success:      true,
             hash:         hash,
             predictions:  result["predictions"],
             top:          result["top"],
             bottom:       result["bottom"],
             left:         result["left"],
             right:        result["right"],
-            path:         'userUpload/' + fileName
+            path:         fileName
           }
           Image.create(imageInfo)
           response.json(imageInfo)
-        })
-      }
-      else{
-        var imageInfo = {
-          hash:         res[0].hash,
-          predictions:  res[0].predictions,
-          top:          res[0].top,
-          bottom:       res[0].bottom,
-          left:         res[0].left,
-          right:        res[0].right,
-          path:         'userUpload/' + fileName
         }
-        console.log(imageInfo)
-        response.json(imageInfo)
-        console.log("delete")
-        fs.unlink('userUpload/'+fileName, (err) => {
-          if (err) {
-            console.error(err)
-          }
-        })
+        else{
+          response.json({
+            success:       false,
+            path:          fileName         
+          })
+        }
+      })
+    }
+    else{
+      var imageInfo = {
+        success:      true,
+        hash:         res[0].hash,
+        predictions:  res[0].predictions,
+        top:          res[0].top,
+        bottom:       res[0].bottom,
+        left:         res[0].left,
+        right:        res[0].right,
+        path:         fileName
       }
-    
-    });
-  })
+      console.log(imageInfo)
+      response.json(imageInfo)
+      console.log("delete")
+      fs.unlink('userUpload/'+fileName, (err) => {
+        if (err) {
+          console.error(err)
+        }
+      })
+    }
+  
+  });
+
 })
 
 var port = 8080
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}!`)
-//    doRequest()
 })
-
 
 function doRequest(url, port, filePath) {
   return new Promise((resolve, reject)=>{
