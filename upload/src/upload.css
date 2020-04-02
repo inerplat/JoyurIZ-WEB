@@ -1,11 +1,11 @@
 html,
-body {
+body .bodyDiv{
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
-body {
+body .bodyDiv {
   font-family: 'NanumBarunGothic', sans-serif;
   background: -webkit-gradient(linear, left bottom, left top, from(#4f6072), to(#8699aa));
   background: linear-gradient(to top, #4f6072, #8699aa);
@@ -71,7 +71,7 @@ body {
   -webkit-animation: faderight 1s 1.5s ease both;
           animation: faderight 1s 1.5s ease both;
 }
-.upload .upload-files .body {
+.upload .upload-files .body .bodyDiv{
   text-align: center;
   padding: 10px 0;
 }
@@ -86,9 +86,14 @@ body {
   color: lightgray;
 }
 .upload .upload-files .body p {
-  font-size: 14px;
-  padding-top: 15px;
+  -webkit-transform: translateY(20px);
+          transform: translateY(20px);
+  margin:5px;
+  font-size: 18px;
   line-height: 1.4;
+  opacity: 0;
+  -webkit-animation: fadeup 1s 1.5s ease both;
+          animation: fadeup 1s 1.5s ease both;
 }
 .upload .upload-files .body p b,
 .upload .upload-files .body p a {
@@ -406,4 +411,42 @@ body {
 
 .ReactModal__Overlay--before-close{
   opacity: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+}
+
+.container > p {
+  font-size: 1rem;
+}
+
+.container > em {
+  font-size: .8rem;
+}
+
+.dropzone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-width: 2px;
+  border-radius: 2px;
+  border-color: #eeeeee;
+  border-style: dashed;
+  background-color: #fafafa;
+  color: #bdbdbd;
+  outline: none;
+  transition: border .24s ease-in-out;
+}
+
+.dropzone:focus {
+  border-color: #2196f3;
+}
+
+.dropzone.disabled {
+  opacity: 0.6;
 }
