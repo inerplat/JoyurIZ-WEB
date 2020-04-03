@@ -9,6 +9,9 @@ const path = require('path');
 const md5File = require('md5-file/promise')
 const mongoose = require('mongoose')
 const schema = require('./mongoImage.js') 
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -22,7 +25,7 @@ const uuid = () => {
 
 mongoose.Promise = global.Promise;
 mongoose.set('useFindAndModify', true);
-mongoose.connect(process.env.DB_URL, { useNewUrlParser: true,  useUnifiedTopology: true })
+mongoose.connect(process.env.DB_URL+'predict', { useNewUrlParser: true,  useUnifiedTopology: true })
   .then(() => console.log('Successfully connected to mongodb'))
   .catch(e => console.error(e));
 
@@ -69,13 +72,30 @@ var upload = multer({
 });
 const Image = mongoose.model('Image', schema.imageSchema);
 app.post('/userTrain', (request, response)=>{
-
+  //console.log(request.body)
+  update = {}
+  switch(request.body.userTrain){
+    case 'Chaewon':
+      update = {voteChaewon : 1}
+      break
+    case 'Yuri':
+      update = {voteYuri : 1}
+      break
+    case 'Yena':
+      update = {voteYena : 1}
+      break
+  }
+  console.log(update)
+  Image.findOneAndUpdate({hash:request.body.hash},{$inc: update},(err,res)=>{
+    console.log(res);
+  })
+  response.json({test: 1})
 })
 app.post('/imageUpload' , upload.single('image'), (requset, response)=>{
+  console.log(request.file)
   fileName = requset.file['filename']
   console.log(fileName)
   hash = md5File.sync('userUpload/'+fileName)
-
   Image.find({hash:hash},(err,res)=>{
     console.log(res);
     if(res.length===0){
@@ -90,7 +110,11 @@ app.post('/imageUpload' , upload.single('image'), (requset, response)=>{
             bottom:       result["bottom"],
             left:         result["left"],
             right:        result["right"],
-            path:         fileName
+            path:         fileName,
+            voteChaewon:  0,
+            voteYuri:     0,
+            voteYena:     0,
+            request:      1,
           }
           Image.create(imageInfo)
           response.json(imageInfo)
@@ -98,12 +122,16 @@ app.post('/imageUpload' , upload.single('image'), (requset, response)=>{
         else{
           response.json({
             success:       false,
-            path:          fileName         
+            path:          fileName,
+            hash:          hash     
           })
         }
       })
     }
     else{
+      Image.update({$inc: {request : 1}},(err,res)=>{
+        console.log(res);
+      })
       var imageInfo = {
         success:      true,
         hash:         res[0].hash,
@@ -112,7 +140,10 @@ app.post('/imageUpload' , upload.single('image'), (requset, response)=>{
         bottom:       res[0].bottom,
         left:         res[0].left,
         right:        res[0].right,
-        path:         fileName
+        path:         fileName,
+        voteChaewon:  res[0].voteChaewon,
+        voteYuri:     res[0].voteYuri,
+        voteYena:     res[0].voteYena,
       }
       console.log(imageInfo)
       response.json(imageInfo)

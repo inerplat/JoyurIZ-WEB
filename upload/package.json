@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.9.8",
+    "@material-ui/icons": "^4.9.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -18,8 +19,10 @@
     "mysql": "2.18.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-dropzone": "^10.2.2",
     "react-flip-move": "^2.1.2",
     "react-images-upload": "^1.2.8",
+    "react-js-banner": "^0.4.0",
     "react-modal": "^3.11.2",
     "react-scripts": "3.4.1",
     "react-spinners": "^0.8.1",
