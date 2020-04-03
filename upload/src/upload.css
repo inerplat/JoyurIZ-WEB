@@ -115,7 +115,7 @@ body .bodyDiv {
   color: #4db6ac;
 }
 .upload .upload-files .body.active {
-  border: dashed 2px #4db6ac;
+  border: 'dashed 2px #4db6ac';
 }
 .upload .upload-files .body.active i {
   box-shadow: 0 0 0 -3px #fff, 0 0 0 lightgray, 0 0 0 -3px #fff, 0 0 0 lightgray;
@@ -536,14 +536,14 @@ body .bodyDiv {
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    border-width: 2;
-    border-radius: 2;
+    border-width: 2px;
+    border-radius: 2px;
     border-color: #eeeeee;
     border-style: dashed;
     background-color: #fafafa;
     color: #bdbdbd;
     outline: none;
-    transition: 'border .24s ease-in-out';
+    transition: border .24s ease-in-out;
     height: 100%;
   
 }
@@ -574,7 +574,7 @@ body .bodyDiv {
 
 .back .bodyDiv .upload .upload-files .body .imageBox .imageTable .resultBox{
   text-align:center; 
-  padding: '10px 0 10px 0'; 
+  padding: 10px 0 10px 0; 
   height:70px; 
   left:25%; 
   bottom:10px; 
