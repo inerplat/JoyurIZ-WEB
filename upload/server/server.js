@@ -72,7 +72,7 @@ var upload = multer({
 });
 const Image = mongoose.model('Image', schema.imageSchema);
 app.post('/userTrain', (request, response)=>{
-  console.log(request.body)
+  //console.log(request.body)
   update = {}
   switch(request.body.userTrain){
     case 'Chaewon':
@@ -81,7 +81,7 @@ app.post('/userTrain', (request, response)=>{
     case 'Yuri':
       update = {voteYuri : 1}
       break
-    case 'Chaewon':
+    case 'Yena':
       update = {voteYena : 1}
       break
   }
@@ -92,10 +92,10 @@ app.post('/userTrain', (request, response)=>{
   response.json({test: 1})
 })
 app.post('/imageUpload' , upload.single('image'), (requset, response)=>{
+  console.log(request.file)
   fileName = requset.file['filename']
   console.log(fileName)
   hash = md5File.sync('userUpload/'+fileName)
-
   Image.find({hash:hash},(err,res)=>{
     console.log(res);
     if(res.length===0){
@@ -113,7 +113,8 @@ app.post('/imageUpload' , upload.single('image'), (requset, response)=>{
             path:         fileName,
             voteChaewon:  0,
             voteYuri:     0,
-            voteYena:    0,
+            voteYena:     0,
+            request:      1,
           }
           Image.create(imageInfo)
           response.json(imageInfo)
@@ -128,6 +129,9 @@ app.post('/imageUpload' , upload.single('image'), (requset, response)=>{
       })
     }
     else{
+      Image.update({$inc: {request : 1}},(err,res)=>{
+        console.log(res);
+      })
       var imageInfo = {
         success:      true,
         hash:         res[0].hash,

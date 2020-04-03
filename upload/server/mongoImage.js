@@ -11,7 +11,8 @@ const imageSchema = new mongoose.Schema({
   predictions:  {type:String, required:true},
   voteChaewon:  {type:Number, required:true},
   voteYuri:     {type:Number, required:true},
-  voteYena:     {type:Number, required:true}
+  voteYena:     {type:Number, required:true},
+  request:      {type:Number, required:true}
 },
 {
   timestamps: true
