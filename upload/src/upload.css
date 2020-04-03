@@ -1,5 +1,6 @@
 html,
 body .bodyDiv{
+  width:100%;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -24,7 +25,6 @@ body .bodyDiv {
   box-sizing: border-box;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  padding-bottom: 20px;
   background: #fff;
   -webkit-animation: fadeup 0.5s 0.5s ease both;
           animation: fadeup 0.5s 0.5s ease both;
@@ -32,6 +32,10 @@ body .bodyDiv {
           transform: translateY(20px);
   opacity: 0;
 }
+.upload .upload-files {
+  min-height: 445px;
+}
+
 .upload .upload-files header {
   background: #FF509F;
   border-top-left-radius: 5px;
@@ -49,8 +53,8 @@ body .bodyDiv {
           transform: translateY(20px);
   opacity: 0;
   font-size: 30px;
-  -webkit-animation: fadeup 0.5s 1s ease both;
-          animation: fadeup 0.5s 1s ease both;
+  -webkit-animation: fadeup 0.2s 0.7s ease both;
+          animation: fadeup 0.2s 0.7s ease both;
 }
 .upload .upload-files header p .up {
   font-weight: bold;
@@ -58,8 +62,8 @@ body .bodyDiv {
           transform: translateX(-20px);
   display: inline-block;
   opacity: 0;
-  -webkit-animation: faderight 0.5s 1.5s ease both;
-          animation: faderight 0.5s 1.5s ease both;
+  -webkit-animation: faderight 0.2s 1.2s ease both;
+          animation: faderight 0.2s 1.2s ease both;
 }
 .upload .upload-files header p .load {
   display: inline-block;
@@ -68,9 +72,15 @@ body .bodyDiv {
   -webkit-transform: translateX(-20px);
           transform: translateX(-20px);
   opacity: 0;
-  -webkit-animation: faderight 1s 1.5s ease both;
-          animation: faderight 1s 1.5s ease both;
+  -webkit-animation: faderight 0.7s 1.2s ease both;
+          animation: faderight 0.7s 1.2s ease both;
 }
+
+.upload .upload-files .body{
+  min-height: 350px;
+
+}
+
 .upload .upload-files .body .bodyDiv{
   text-align: center;
   padding: 10px 0;
@@ -86,14 +96,19 @@ body .bodyDiv {
   color: lightgray;
 }
 .upload .upload-files .body p {
+  margin:5px;
+  font-size: 18px;
+  line-height: 1.4;
+}
+.upload .upload-files .body .fadeP {
   -webkit-transform: translateY(20px);
           transform: translateY(20px);
   margin:5px;
   font-size: 18px;
   line-height: 1.4;
   opacity: 0;
-  -webkit-animation: fadeup 1s 1.5s ease both;
-          animation: fadeup 1s 1.5s ease both;
+  -webkit-animation: fadeup 0.5s 1s ease both;
+          animation: fadeup 0.5s 1s ease both;
 }
 .upload .upload-files .body p b,
 .upload .upload-files .body p a {
@@ -246,7 +261,7 @@ body .bodyDiv {
 }
 .upload .upload-files footer .list-files .file .done:before {
   content: "View";
-  position: absolute;
+  position: relative;
   top: 0;
   left: -5px;
   font-size: 24px;
@@ -319,7 +334,7 @@ body .bodyDiv {
 }
 .upload .upload-files footer .importar {
   outline: none;
-  position: absolute;
+  position: relative;
   left: 0;
   right: 0;
   bottom: 20px;
@@ -391,12 +406,6 @@ body .bodyDiv {
     opacity: 1;
   }
 }
-@media (max-width: 400px) {
-  .upload {
-    width: 100%;
-    height: 100%;
-  }
-}
 
 
 .ReactModal__Overlay {
@@ -449,4 +458,167 @@ body .bodyDiv {
 
 .dropzone.disabled {
   opacity: 0.6;
+}
+
+.banner{
+  -webkit-animation: fade 3s ease both;
+          animation: fade 3s ease both;
+}
+
+@keyframes fade {
+  0%,100% { opacity: 0 }
+  25%, 75% { opacity: 1 }
+}
+
+@-webkit-keyframes fade {
+  0%,100% { opacity: 0 }
+  25%, 75% { opacity: 1 }
+}
+
+
+@media (max-width: 450px) {
+  .upload {
+    width: 88%;
+  }
+  .upload .upload-files .body .fadeP {
+    font-size: 15px;
+  }
+  .upload .upload-files header p {
+    font-size: 35px;
+  }
+  .upload .upload-files .body .nomalP {
+    font-size: 16px;
+  }
+}
+
+.back {
+  height:100%;
+}
+.back .banner{
+  width:100%;
+  color: #000;
+  background-color: lightGreen; 
+  font-family: arial;
+  margin:0;
+  position:absolute;
+  z-index:1;
+}
+
+.back .bodyDiv .preview{
+  display: none;
+}
+.back .bodyDiv .upload .iconButton{
+  position:absolute;
+  right:-10px; 
+  top:-10px; 
+  background-color:white;
+  border-radius: 50%;
+}
+.back .bodyDiv .upload .iconButton .refresh{
+  color:gray
+}
+.back .bodyDiv .upload .upload-files .body .uploadBox{
+  width:80%; 
+  height:50%; 
+  margin-left:auto; 
+  margin-right:auto; 
+  position:absolute; 
+  top:30%; 
+  left:10%;
+}
+.back .bodyDiv .upload .upload-files .body .uploadBox .dropSection{
+  height: 100%;
+}
+
+.back .bodyDiv .upload .upload-files .body .uploadBox .dropSection .dropBox{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-width: 2;
+    border-radius: 2;
+    border-color: #eeeeee;
+    border-style: dashed;
+    background-color: #fafafa;
+    color: #bdbdbd;
+    outline: none;
+    transition: 'border .24s ease-in-out';
+    height: 100%;
+  
+}
+
+.back .bodyDiv .upload .upload-files .body .uploadBox .dropSection .dropText{
+  text-align: center;
+  position: relative;
+  top:33%;
+  color:#999999;
+}
+.back .bodyDiv .upload .upload-files .body .imageBox{
+  width:100%;
+  height:100%; 
+  text-align:center;
+  position:relative; 
+  min-height:350px; 
+  display:table;
+}
+.back .bodyDiv .upload .upload-files .body .imageBox .imageTable{
+  display: table-cell; 
+  vertical-align: middle
+}
+.back .bodyDiv .upload .upload-files .body .imageBox .imageTable .imageCanvas{
+  margin-top:10px; 
+  position:relative;
+  width:75%
+}
+
+.back .bodyDiv .upload .upload-files .body .imageBox .imageTable .resultBox{
+  text-align:center; 
+  padding: '10px 0 10px 0'; 
+  height:70px; 
+  left:25%; 
+  bottom:10px; 
+  width:100%; 
+  border-radius: 25px; 
+  background:white;
+}
+.back .bodyDiv .upload .upload-files .body .imageBox .imageTable .resultBox .resultDiv{
+  text-align: center;
+}
+.back .bodyDiv .upload .upload-files .body .imageBox .imageTable .loadingBox{
+  position: absolute; 
+  top:120px; 
+  left:47%
+}
+
+.userTrain .wrong{
+  margin:5px;
+}
+
+#exitButton{
+  float: right;
+}
+
+#exitIcon{
+  position:absolute;
+  left:88%;
+  top:7%
+}
+
+#chaewon{
+  font-family:NanumBarunGothic; 
+  margin:5px;
+  background-color:#cee5d5
+}
+
+#yuri{
+  font-family:NanumBarunGothic; 
+  margin:5px;
+  background-color:#f3aa51
+}
+
+#yena{
+  font-family:NanumBarunGothic; 
+  margin:5px;
+  background-color:#fcf695
 }

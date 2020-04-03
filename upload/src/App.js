@@ -1,50 +1,70 @@
 import axios from 'axios'; 
-import React,{Component, useMemo} from 'react';
+import React,{Component} from 'react';
 import { css } from "@emotion/core";
 import PropagateLoader from "react-spinners/PropagateLoader";
 import './upload.css';
 import AnimatedModal from "./userTrain";
 import Dropzone from 'react-dropzone'
 import Banner from 'react-js-banner';
-import Button from '@material-ui/core/Button';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import {IconButton} from '@material-ui/core';
 const override = css`
   display: block;
   margin: 0 auto;
   border-color: red;
 `;
-const dropzoneStyle = {
-  flex: 1,
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  padding: '20px',
-  borderWidth: 2,
-  borderRadius: 2,
-  borderColor: '#eeeeee',
-  borderStyle: 'dashed',
-  backgroundColor: '#fafafa',
-  color: '#bdbdbd',
-  outline: 'none',
-  transition: 'border .24s ease-in-out',
-  height: '100%'
-}
 class App extends Component {
     constructor(props) {
     super(props);
     this.state = { 
+      error:          false,
+      fail:           false,
       predictions:    [],
       loading:        false,
       fileName:       '',
       hash:           '',
       vote:           [],
       showResult:     false,
-      bannerStatus:   false
+      bannerStatus:   false,
+      reload:         false
     };
     this.onDrop = this.onDrop.bind(this);
+    this.clear = this.clear.bind(this);
+    this.showBanner = this.showBanner.bind(this);
   }
-
+  clear(){
+    this.setState({
+      error:          false,
+      fail:           false,
+      predictions:    [],
+      loading:        false,
+      fileName:       '',
+      hash:           '',
+      vote:           [],
+      showResult:     false,
+      bannerStatus:   false,
+      reload:         true
+    })
+  }
+  showBanner(status){
+    this.setState(status)
+    setTimeout(
+      function() {
+          this.setState({bannerStatus:  false, error: false, fail: false});
+      }
+      .bind(this),
+      3000
+    )
+  }
   async onDrop(event) {
-    console.log(event)
+    this.setState({
+      predictions:    [],
+      loading:        true,
+      fileName:       '',
+      hash:           '',
+      vote:           [],
+      showResult:     false
+    })
     var pictureFiles = event
     var reader = new FileReader();
     reader.onload = function(){
@@ -52,19 +72,10 @@ class App extends Component {
       output.src = reader.result;
     };
     reader.readAsDataURL(pictureFiles[0]);
-    var canvas = document.getElementById("myCanvas");
-    this.setState({
-      predictions:    [],
-      loading:        true,
-      fileName:       '',
-      hash:           '',
-      vote:           [],
-      showResult:     false,
-      bannerStatus:   false
-    })
+    var canvas = document.getElementById("imageCanvas");
+
     var ctx = canvas.getContext("2d"); 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    console.log(pictureFiles.length)
     if(pictureFiles.length > 0){
       const formData = new FormData();
       formData.append( 
@@ -74,12 +85,16 @@ class App extends Component {
       );
       var imagePost = async () =>{
         try{
-          return await axios.post("http://localhost:8080/imageUpload", formData)
+          return await axios.post("http://192.168.0.2:8080/imageUpload", formData)
         } catch(error){
           console.log(error)
         }
       }
       var response = await imagePost()
+      if(!response){
+        this.showBanner({error : true})
+      }
+      else{
       var img = document.getElementById("preview");
       canvas.width  = img.width;
       canvas.height = img.height;
@@ -114,84 +129,100 @@ class App extends Component {
           fileName: response.data.path,
           hash:     response.data.hash
         })
+        this.showBanner({fail : true})
       }
     }
   }
+  }
 
   render() {
-    
     return (
-      <div style={{height:'100%'}}>
+      <div className="back">
         <Banner 
-          title="응답이 제출되었습니다. "
-          css={{width:'100%', color: "#000", backgroundColor: "lightGreen", fontFamily: "arial", margin:'0', position:'absolute'}} 
-          showBanner={this.bannerStatus}
+          className="banner"
+          title="응답이 제출되었습니다."
+          showBanner={this.state.bannerStatus}
+        />
+        <Banner 
+          css={{backgroundColor:'red', color:'white'}}
+          className="banner"
+          title="잘못된 파일이거나, 서버가 응답할 수 없습니다."
+          showBanner={this.state.error}
+        />
+        <Banner 
+          css={{backgroundColor:'yellow'}}
+          className="banner"
+          title="얼굴을 찾을 수 없습니다."
+          showBanner={this.state.fail}
         />
       <div className="bodyDiv">
-
-        <img id="preview" style={{display:'none'}}/>
-        
+        <img className="preview" id="preview" />
         <div className="upload">
+            <IconButton className="iconButton" onClick={this.clear} size="small">
+              <RefreshIcon className="refresh" fontSize="large"/>
+            </IconButton>
             <div className="upload-files">
-              
-          <div style={{float:'right'}}>
-          <Button style={{position:'absolute',}}>test</Button></div>
               <header>
               <p>
               <span className="up">조유리즈</span>
               <span className="load">판별기</span>
               </p>
-            </header>
-            <div className="body" id="drop">
-            
-
-              <div style={{textAlign:'center', margin:'10px',position:'relative'}}>
-                <canvas id="myCanvas" style={{position:'relative',width:'70%'}}></canvas>
-                <div style={{position: 'absolute', top:'70%', left:'47%'}}>
-                    <PropagateLoader
-                      css={override}
-                      size={25}
-                      color={"#FF509F"}
-                      loading={this.state.loading}
-                    />
-                </div>
-              </div>
-              
-              { 
+              </header>
+            <div className="body" id="drop">         
+              {
                 !this.state.loading && !this.state.showResult ?(
-                <div style={{width:'80%', height:'50%', marginLeft:'auto', marginRight:'auto', position:'absolute', top:'30%', left:'10%'}}>
-                  <Dropzone multiple={false} onDrop={acceptedFiles => this.onDrop(acceptedFiles)}>
-                    {({getRootProps, getInputProps}) => (
-                      <section style={{height:'100%'}}>
-                        <div {...getRootProps(this.style)} style={dropzoneStyle}>
-                          <input className="dropzone" {...getInputProps({
-                            type:'file',
-                            accept:'image/*'
-                          })} />
-                          <div style={{textAlign:'center', position:'relative', top:'30%'}}>
-                          <p>업로드할 파일을 드래그하거나</p> <p>박스를 <span style={{color:'lightBlue'}}>클릭</span>해주세요</p>
+                  <div className="uploadBox">
+                    <Dropzone multiple={false} onDrop={acceptedFiles => this.onDrop(acceptedFiles)}>
+                      {({getRootProps, getInputProps}) => (
+                        <section className="dropSection">
+                          <div className="dropBox" {...getRootProps(this.style)}>
+                            <input className="dropzone" {...getInputProps({
+                              type:'file',
+                              accept:'image/*'
+                            })} />
+                            <div className="dropText">
+                            <p className={this.state.reload ? 'nomalP' : 'fadeP'}>업로드할 파일을 드래그하거나</p> 
+                            <p className={this.state.reload ? 'nomalP' : 'fadeP'}>박스를 
+                            <span style={{color:'lightBlue'}}> 클릭</span>해주세요</p>
+                            </div>
                           </div>
+                        </section>
+                      )}
+                    </Dropzone>
+                  </div>
+                ) : (
+                  <div className="imageBox">
+                    <div className="imageTable">
+                    <canvas className="imageCanvas" id="imageCanvas">이 브라우저는 'canvas'기능을 제공하지 않습니다.</canvas>
+                    {
+                      this.state.showResult ?(
+                      <div className="resultBox">
+                        <div className="resultDiv">분석 결과 : {this.state.predictions[0]}</div>
+                        <div className="resultDiv">
+                          <AnimatedModal 
+                            banner={this.showBanner}
+                            clear={this.clear}
+                            fileName={this.state.fileName} 
+                            hash={this.state.hash} 
+                            prediction={this.state.predictions[0]}/>
                         </div>
-                      </section>
-                    )}
-                  </Dropzone>
-                </div>
-              ) : null
-            }
+                      </div>
+                      ) :null
+                    }
+                    <div className="loadingBox">
+                        <PropagateLoader
+                          css={override}
+                          size={25}
+                          color={"#FF509F"}
+                          loading={this.state.loading}
+                        />
+                    </div>
+                    </div>
+                  </div>
+                  )
+              }
             </div>
-            { 
-              this.state.showResult ?(
-                <div style={{textAlign:'center'}}>분석 결과 : {this.state.predictions[0]}</div>
-              ) : null
-            }
             </div>
-            {
-              this.state.showResult ?(
-                <div style={{textAlign:'center'}}>
-                  <AnimatedModal fileName={this.state.fileName} hash={this.state.hash} prediction={this.state.predictions[0]}/>
-                </div>
-              ) : null
-            }
         </div>  
 
       </div>

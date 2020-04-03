@@ -11,7 +11,7 @@ const customStyles = {
       right                 : 'auto',
       bottom                : 'auto',
       marginRight           : '-50%',
-      width: '35%',
+      width: '270px',
       transform             : 'translate(-50%, -50%)',
       padding               : '30px'
     },
@@ -22,17 +22,14 @@ const customStyles = {
 Modal.setAppElement('#root')
 export default function AnimatedModal(props) {
     const [incorrectModalOpen,incorrectModalSet] = React.useState(false);
-    const [modalIsOpen2,setIsOpen2] = React.useState(false);
     async function click(name){
-        console.log(props)
-        console.log(name)
-        var result = await imagePost(name)
-        console.log(result)
+        await imagePost(name)
         incorrectModalSet(false);
+        props.clear()
+        props.banner()
     }
     async function imagePost(who){
         if(props.fileName !==''){
-            console.log(props)
             try{
                 return await axios.post("http://localhost:8080/userTrain", {
                     'fileName':       props.fileName,
@@ -48,24 +45,8 @@ export default function AnimatedModal(props) {
         }
     }
     return (
-        <div>
-            <Button variant="contained" style={{backgroundColor:'lightGreen', margin:'5px'}} onClick={e=>setIsOpen2(true)}>정답입니다</Button>
-            <Modal
-                closeTimeoutMS={500}
-                isOpen={modalIsOpen2}
-                onRequestClose={e=>setIsOpen2(false)}
-                style={customStyles}
-                contentLabel="Example Modal"
-                >
-                
-                <div>
-                    <h2>정답을 알려주세요</h2>
-                    <p>
-                        hi
-                    </p>
-                </div>
-            </Modal>
-            <Button variant="contained" style={{margin:'5px'}} color="secondary" onClick={e=>incorrectModalSet(true)}>
+        <div className="userTrain">
+            <Button className="wrong" variant="contained" color="secondary" onClick={e=>incorrectModalSet(true)}>
                 틀렸어요 ㅜ.ㅜ
             </Button>
             <Modal
@@ -73,20 +54,21 @@ export default function AnimatedModal(props) {
                 isOpen={incorrectModalOpen}
                 onRequestClose={e=>incorrectModalSet(false)}
                 style={customStyles}
-                contentLabel="Example Modal"
-                >
-                    <div style={{float:'right'}}><IconButton style={{position:'absolute',left:'85%', top:'5%'}}>
-   <CloseIcon/>
-</IconButton></div>
-                <div>
+                contentLabel="Example Modal">
+                <div id="exitButton">
+                    <IconButton id="exitIcon" size="small" onClick={e=>incorrectModalSet(false)}>
+                        <CloseIcon/>
+                    </IconButton>
+                </div>
+                <div className="member">
                     <h2>정답을 알려주세요</h2>
                     <p>
                         지금 입력하신 답변은 추후에 반영됩니다.
                     </p>
                     <div>
-                    <Button variant="contained" onClick={e=>click('Chaewon')} style={{fontFamily:'NanumBarunGothic', margin:'5px',backgroundColor:'#cee5d5'}}>김채원</Button>
-                    <Button variant="contained" onClick={e=>click('Yuri')} style={{fontFamily:'NanumBarunGothic', margin:'5px',backgroundColor:'#f3aa51'}}>조유리</Button>
-                    <Button variant="contained" onClick={e=>click('Yaena')} style={{fontFamily:'NanumBarunGothic', margin:'5px',backgroundColor:'#fcf695'}}>최예나</Button>
+                    <Button id="chaewon" variant="contained" onClick={e=>click('Chaewon')}>김채원</Button>
+                    <Button id="yuri" variant="contained" onClick={e=>click('Yuri')}>조유리</Button>
+                    <Button id="yena" variant="contained" onClick={e=>click('Yena')}>최예나</Button>
                     </div>
                 </div>
             </Modal>
