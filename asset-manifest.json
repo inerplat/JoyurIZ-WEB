@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.19e3e23a.chunk.css",
-    "main.js": "/static/js/main.704e9904.chunk.js",
-    "main.js.map": "/static/js/main.704e9904.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.3847e76f.js",
-    "runtime-main.js.map": "/static/js/runtime-main.3847e76f.js.map",
-    "static/js/2.616e13af.chunk.js": "/static/js/2.616e13af.chunk.js",
-    "static/js/2.616e13af.chunk.js.map": "/static/js/2.616e13af.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.6e6e1a7de3785daab3ad45919dfc5abd.js": "/precache-manifest.6e6e1a7de3785daab3ad45919dfc5abd.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.19e3e23a.chunk.css.map": "/static/css/main.19e3e23a.chunk.css.map",
-    "static/js/2.616e13af.chunk.js.LICENSE.txt": "/static/js/2.616e13af.chunk.js.LICENSE.txt"
+    "main.css": "/JoyurIZ-WEB/static/css/main.19e3e23a.chunk.css",
+    "main.js": "/JoyurIZ-WEB/static/js/main.da7ec350.chunk.js",
+    "main.js.map": "/JoyurIZ-WEB/static/js/main.da7ec350.chunk.js.map",
+    "runtime-main.js": "/JoyurIZ-WEB/static/js/runtime-main.303620f5.js",
+    "runtime-main.js.map": "/JoyurIZ-WEB/static/js/runtime-main.303620f5.js.map",
+    "static/js/2.616e13af.chunk.js": "/JoyurIZ-WEB/static/js/2.616e13af.chunk.js",
+    "static/js/2.616e13af.chunk.js.map": "/JoyurIZ-WEB/static/js/2.616e13af.chunk.js.map",
+    "index.html": "/JoyurIZ-WEB/index.html",
+    "precache-manifest.3b0eb8ccf4d1cc274e707c89fde62aad.js": "/JoyurIZ-WEB/precache-manifest.3b0eb8ccf4d1cc274e707c89fde62aad.js",
+    "service-worker.js": "/JoyurIZ-WEB/service-worker.js",
+    "static/css/main.19e3e23a.chunk.css.map": "/JoyurIZ-WEB/static/css/main.19e3e23a.chunk.css.map",
+    "static/js/2.616e13af.chunk.js.LICENSE.txt": "/JoyurIZ-WEB/static/js/2.616e13af.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.3847e76f.js",
+    "static/js/runtime-main.303620f5.js",
     "static/js/2.616e13af.chunk.js",
     "static/css/main.19e3e23a.chunk.css",
-    "static/js/main.704e9904.chunk.js"
+    "static/js/main.da7ec350.chunk.js"
   ]
 }
