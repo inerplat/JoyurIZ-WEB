@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "101014c690b065cc43b0a4d9ca6b7035",
+    "revision": "2ec33c2dd6f86ef92d37bf2cda5cc598",
     "url": "/JoyurIZ-WEB/index.html"
   },
   {
