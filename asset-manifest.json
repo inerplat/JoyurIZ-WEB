@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/JoyurIZ-WEB/static/css/main.907ccf7a.chunk.css",
+    "main.css": "/JoyurIZ-WEB/static/css/main.2d7ad883.chunk.css",
     "main.js": "/JoyurIZ-WEB/static/js/main.da7ec350.chunk.js",
     "main.js.map": "/JoyurIZ-WEB/static/js/main.da7ec350.chunk.js.map",
     "runtime-main.js": "/JoyurIZ-WEB/static/js/runtime-main.303620f5.js",
@@ -8,15 +8,15 @@
     "static/js/2.616e13af.chunk.js": "/JoyurIZ-WEB/static/js/2.616e13af.chunk.js",
     "static/js/2.616e13af.chunk.js.map": "/JoyurIZ-WEB/static/js/2.616e13af.chunk.js.map",
     "index.html": "/JoyurIZ-WEB/index.html",
-    "precache-manifest.816d7e7d034e7157c56f68526dd27724.js": "/JoyurIZ-WEB/precache-manifest.816d7e7d034e7157c56f68526dd27724.js",
+    "precache-manifest.61a6bf3454363ce8fcb451cf1033573b.js": "/JoyurIZ-WEB/precache-manifest.61a6bf3454363ce8fcb451cf1033573b.js",
     "service-worker.js": "/JoyurIZ-WEB/service-worker.js",
-    "static/css/main.907ccf7a.chunk.css.map": "/JoyurIZ-WEB/static/css/main.907ccf7a.chunk.css.map",
+    "static/css/main.2d7ad883.chunk.css.map": "/JoyurIZ-WEB/static/css/main.2d7ad883.chunk.css.map",
     "static/js/2.616e13af.chunk.js.LICENSE.txt": "/JoyurIZ-WEB/static/js/2.616e13af.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.303620f5.js",
     "static/js/2.616e13af.chunk.js",
-    "static/css/main.907ccf7a.chunk.css",
+    "static/css/main.2d7ad883.chunk.css",
     "static/js/main.da7ec350.chunk.js"
   ]
 }
