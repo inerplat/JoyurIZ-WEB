@@ -6,7 +6,7 @@ const express = require('express')
 const app = express()
 const uuid4 = require('uuid4')
 const path = require('path');
-const md5File = require('md5-file/promise')
+const md5File = require('md5-file')
 const mongoose = require('mongoose')
 const schema = require('./mongoImage.js') 
 const bodyParser = require('body-parser');
@@ -72,7 +72,6 @@ var upload = multer({
 });
 const Image = mongoose.model('Image', schema.imageSchema);
 app.post('/userTrain', (request, response)=>{
-  //console.log(request.body)
   update = {}
   switch(request.body.userTrain){
     case 'Chaewon':
