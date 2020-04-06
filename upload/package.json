@@ -18,7 +18,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "react-spinners": "^0.8.1",
-    "request": "^2.88.2",
+    "request": "^2.88.2"
   },
   "scripts": {
     "start": "react-scripts start",

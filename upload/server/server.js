@@ -158,7 +158,7 @@ app.post('/imageUpload' , upload.single('image'), (requset, response)=>{
 
 })
 
-var port = 8080
+var port = 10290
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}!`)
 })
