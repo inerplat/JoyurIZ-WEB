@@ -3,3 +3,4 @@ flask/.ipynb_checkpoints
 flask/venv
 node_modules
 DB
+server/userUpload/

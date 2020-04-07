@@ -1,6 +1,35 @@
 version: "3"
 services:
-    client:
+    server:
         build:
-            dockerfile: Dockerfile.dev
-            context: 
+            dockerfile: Dockerfile
+            context: ./server
+        volumes:
+            - ./server/:/app
+            - /node_modules
+        environment: 
+            - NODE_PATH=src
+            - PORT=10290
+            - DB_HOST=joyuirz-db
+            - DB=test
+        networks:
+            - backend
+        depends_on:
+            - mongo
+        ports:
+            - "10290:10290"
+    mongo:
+        container_name: joyuriz-db
+        image: mongo
+        volumes:
+            - data:/data/DB
+        ports:
+            - "27017:27017"
+        networks:
+            - backend
+networks:
+    backend:
+        driver: bridge
+volumes:
+    data:
+        driver: local

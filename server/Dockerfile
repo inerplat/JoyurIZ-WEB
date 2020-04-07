@@ -1,8 +1,10 @@
-FROM node:12
-COPY package.json /src/package.json
-RUN cd /src; npm install
-COPY . /src
+FROM node:12-alpine
+
+WORKDIR "/app"
+
+COPY package.json ./package.json
+RUN npm install
+COPY . .
 EXPOSE 10290
-WORKDIR /src 
 
 CMD node server.js
