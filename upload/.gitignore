@@ -1,6 +1,3 @@
-server/userUpload
-server/DB
-server/.env
 # dependencies
 /node_modules
 /.pnp
@@ -22,5 +19,3 @@ server/.env
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-DB
