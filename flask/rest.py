@@ -1,16 +1,6 @@
-# USAGE
-# Start the server:
-#     python run_keras_server.py
-# Submit a request via cURL:
-#     curl -X POST -F image=@dog.jpg 'http://localhost:5000/predict'
-# Submita a request via Python:
-#    python simple_request.py
-
-# import the necessary packages
 from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.applications import imagenet_utils
 from tensorflow.keras.models import load_model
-import cv2
 import numpy
 from PIL import Image
 import numpy as np
@@ -25,14 +15,14 @@ app = flask.Flask(__name__)
 predictList = ['Chaewon', 'Yena', 'Yuri']
 def prepare_image(image, target):
     npImage = numpy.array(image)
-    print(np.shape(npImage))
     faces = FR.face_locations(npImage, number_of_times_to_upsample=0, model="hog")
     if len(faces) != 1 :
         print('fail to find')
         return (False, 0, 0, 0, 0)
     T, R, B, L = faces[0]
     crop  = npImage[T:B, L:R]
-    faceImage = cv2.resize(crop, target, interpolation = cv2.INTER_CUBIC)
+    #faceImage = cv2.resize(crop, target, interpolation = cv2.INTER_CUBIC)
+    faceImage = Image.fromarray(crop).resize((256,256), Image.BICUBIC)
     x = np.expand_dims(img_to_array(faceImage), axis=0)
     result = np.vstack([x])
     return (result, T, R, B, L)
@@ -58,11 +48,10 @@ def predict():
             image, T, R, B, L = prepare_image(image, target=(256, 256))
             if image is False:
                 return flask.jsonify(data)
-            print(np.shape(image))
             model = load_model('./model3.h5')
             model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
             preds = model.predict_classes(image)
-            print(preds)
+            print(predictList[preds[0]])
             data["predictions"] = predictList[preds[0]]
             data['top'] = T
             data['right'] = R
@@ -75,4 +64,4 @@ def predict():
 if __name__ == "__main__":
     print(("* Loading Keras model and Flask starting server..."
         "please wait until server has fully started"))
-    app.run()
+    app.run(host='0.0.0.0')
