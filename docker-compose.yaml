@@ -1,6 +1,7 @@
 version: "3"
 services:
     server:
+        container_name: joyuriz-server
         build:
             dockerfile: Dockerfile
             context: ./server
@@ -27,6 +28,19 @@ services:
             - "27017:27017"
         networks:
             - backend
+    flask:
+        container_name: joyuriz-api
+        build:
+            dockerfile: Dockerfile
+            context: ./flask
+        ports:
+            - "5000:5000"
+        networks:
+            - backend
+        depends_on:
+            - server
+        volumes:
+            - ./flask/:/app
 networks:
     backend:
         driver: bridge

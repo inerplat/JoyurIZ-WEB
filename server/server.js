@@ -98,7 +98,7 @@ app.post('/imageUpload' , upload.single('image'), (requset, response)=>{
   Image.find({hash:hash},(err,res)=>{
     console.log(res);
     if(res.length===0){
-      doRequest('http://127.0.0.1:5000/predict', 5000, 'userUpload/'+fileName)
+      doRequest('http://joyuriz-api:5000/predict', 5000, 'userUpload/'+fileName)
       .then(result=>{
         if(result['success'] == true){
           var imageInfo = {
@@ -176,8 +176,11 @@ function doRequest(url, port, filePath) {
               "image" : fs.createReadStream(filePath)
           }
       };
-      request.post(options, (error, res, body)=>{
-        resolve(JSON.parse(body))
-      })
+      try{
+        request.post(options, (error, res, body)=>{
+          resolve(JSON.parse(body))
+        })
+      }
+      catch(e){console.log("Post error", e)}
   }); 
 }
