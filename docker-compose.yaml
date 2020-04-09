@@ -10,7 +10,7 @@ services:
             - /node_modules
         environment: 
             - NODE_PATH=src
-            - PORT=10290
+            - PORT=443
             - DB_HOST=joyuirz-db
             - DB=test
         networks:
@@ -18,7 +18,7 @@ services:
         depends_on:
             - mongo
         ports:
-            - "10290:10290"
+            - "443:443"
     mongo:
         container_name: joyuriz-db
         image: mongo

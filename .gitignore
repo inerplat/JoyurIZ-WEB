@@ -4,3 +4,4 @@ flask/venv
 node_modules
 DB
 server/userUpload/
+server/keys/

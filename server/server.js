@@ -10,8 +10,14 @@ const md5File = require('md5-file')
 const mongoose = require('mongoose')
 const schema = require('./mongoImage.js') 
 const bodyParser = require('body-parser');
-app.use(bodyParser.json());
+const https = require('https');
+const options = {
+  cert: fs.readFileSync('keys/certificate.crt'),
+  key: fs.readFileSync('keys/private.key'),
+  ca : fs.readFileSync('keys/ca.crt')
+};
 
+app.use(bodyParser.json());
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -158,10 +164,14 @@ app.post('/imageUpload' , upload.single('image'), (requset, response)=>{
 
 })
 
-var port = 10290
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}!`)
-})
+var port = 443
+https.createServer(options, app).listen(port,()=>{
+  console.log("listening on port 443")
+});
+
+//app.listen(port, () => {
+//    console.log(`Example app listening on port ${port}!`)
+//})
 
 function doRequest(url, port, filePath) {
   return new Promise((resolve, reject)=>{

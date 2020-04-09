@@ -85,7 +85,7 @@ class App extends Component {
       );
       var imagePost = async () =>{
         try{
-          return await axios.post("http://192.168.99.100:10290/imageUpload", formData)
+          return await axios.post("https://joyuriz.shop/imageUpload", formData)
         } catch(error){
           console.log(error)
         }

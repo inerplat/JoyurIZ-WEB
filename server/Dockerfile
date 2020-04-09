@@ -5,6 +5,6 @@ WORKDIR "/app"
 COPY package.json ./package.json
 RUN npm install
 COPY . .
-EXPOSE 10290
+EXPOSE 443
 
 CMD node server.js

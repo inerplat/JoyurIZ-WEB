@@ -26,12 +26,12 @@ export default function AnimatedModal(props) {
         await imagePost(name)
         incorrectModalSet(false);
         props.clear()
-        props.banner()
+        props.banner({bannerStatus:true})
     }
     async function imagePost(who){
         if(props.fileName !==''){
             try{
-                return await axios.post("http://localhost:8080/userTrain", {
+                return await axios.post("https://joyuriz.shop/userTrain", {
                     'fileName':       props.fileName,
                     'userTrain':      who,
                     'hash':           props.hash
