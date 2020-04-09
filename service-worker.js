@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/JoyurIZ-WEB/precache-manifest.22a506d88b6121938147e25e0627559e.js"
+  "/JoyurIZ-WEB/precache-manifest.12042aa63a03b6e8b9fc61efb4bab59d.js"
 );
 
 self.addEventListener('message', (event) => {
