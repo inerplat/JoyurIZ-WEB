@@ -8,5 +8,5 @@ COPY requirements.txt ./
 
 COPY . .
 
-CMD ["python", "rest.py"]
-#CMD ["/bin/bash", "-c", "gunicorn -b 0.0.0.0:5000 -w 4 rest.py:app" ]
+#CMD ["python", "rest.py"]
+CMD ["/bin/bash", "-c", "gunicorn -b 0.0.0.0:5000 -w 4 rest:app" ]
