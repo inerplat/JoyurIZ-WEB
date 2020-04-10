@@ -12,6 +12,8 @@ import face_recognition as FR
 import magic
 
 app = flask.Flask(__name__)
+model = load_model('./model3.h5')
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 predictList = ['Chaewon', 'Yena', 'Yuri']
 def prepare_image(image, target):
     npImage = numpy.array(image)
@@ -48,8 +50,6 @@ def predict():
             image, T, R, B, L = prepare_image(image, target=(256, 256))
             if image is False:
                 return flask.jsonify(data)
-            model = load_model('./model3.h5')
-            model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
             preds = model.predict_classes(image)
             print(predictList[preds[0]])
             data["predictions"] = predictList[preds[0]]
