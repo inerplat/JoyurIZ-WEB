@@ -10,7 +10,7 @@ services:
             - /node_modules
         environment: 
             - NODE_PATH=src
-            - PORT=80
+            - PORT=443
             - DB_HOST=joyuirz-db
             - DB=test
         networks:
