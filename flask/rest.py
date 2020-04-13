@@ -31,7 +31,6 @@ def prepare_image(image, target):
 
 @app.route("/predict", methods=["POST"])
 def predict():
-
     data = {"success": False}
     print(flask.request)
     if flask.request.method == "POST":

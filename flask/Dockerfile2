@@ -2,8 +2,6 @@ FROM python:3.6
 
 WORKDIR "/app"
 
-COPY requirements.txt ./
-
 RUN pip install --no-cache-dir numpy scipy
 RUN apt-get update
 RUN apt-get install build-essential cmake pkg-config -y
@@ -13,9 +11,7 @@ RUN pip install --no-cache-dir dlib
 RUN pip install --no-cache-dir tensorflow==2.0.1
 RUN pip install --no-cache-dir keras pillow flask python-magic==0.4.13 face_recognition gunicorn
 
-#RUN pip install -r requirements.txt
-
 COPY . .
 
-CMD ["python", "rest.py"]
-#CMD ["/bin/bash", "-c", "gunicorn -b 0.0.0.0:5000 -w 4 rest.py:app" ]
+#CMD ["python", "rest.py"]
+CMD ["/bin/bash", "-c", "gunicorn -b 0.0.0.0:5000 -w 2 rest:app" ]
