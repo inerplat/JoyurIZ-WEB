@@ -11,7 +11,5 @@ RUN pip install --no-cache-dir dlib
 RUN pip install --no-cache-dir tensorflow==2.1.0
 RUN pip install --no-cache-dir keras pillow flask python-magic==0.4.13 face_recognition gunicorn
 
-COPY . .
-
 #CMD ["python", "rest.py"]
 #CMD ["/bin/bash", "-c", "gunicorn -b 0.0.0.0:5000 -w 2 rest:app" ]

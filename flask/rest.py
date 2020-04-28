@@ -15,7 +15,7 @@ import gc
 # import tracemalloc
 # tracemalloc.start(10)
 app = flask.Flask(__name__)
-model = load_model('./model3.h5')
+model = load_model('./model5.h5')
 predictList = ['Chaewon', 'Yena', 'Yuri']
 
 def prepare_image(image, target):
