@@ -18,7 +18,7 @@ body {
 }
 
 h2 {
-  font-family: 'NanumBarunGothic', "Roboto", sans-serif;
+  font-family: 'NanumSquare', "Roboto", sans-serif;
   font-size: 26px;
   line-height: 1;
   color: #454cad;
@@ -26,7 +26,7 @@ h2 {
 }
 
 p {
-  font-family: 'NanumBarunGothic', "Roboto", sans-serif;
+  font-family: 'NanumSquare', "Roboto", sans-serif;
   font-size: 18px;
   color: #5f6982;
 }
@@ -147,7 +147,7 @@ p {
   display: inline-block;
   margin: 0.5rem 0.5rem 1rem 0.5rem;
   clear: both;
-  font-family: 'NanumBarunGothic', inherit;
+  font-family: 'NanumSquare', inherit;
   font-weight: 700;
   font-size: 14px;
   text-decoration: none;
