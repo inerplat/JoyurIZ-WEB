@@ -4,10 +4,14 @@ import { css } from "@emotion/core";
 import PropagateLoader from "react-spinners/PropagateLoader";
 import './upload.css';
 import AnimatedModal from "./userTrain";
+import InfoModal from "./infoModal";
 import Dropzone from 'react-dropzone'
 import Banner from 'react-js-banner';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import {IconButton} from '@material-ui/core';
+import ReactGA from 'react-ga';
+const trackingId = 'UA-148371899-1'
+ReactGA.initialize(trackingId);
 const override = css`
   display: block;
   margin: 0 auto;
@@ -45,6 +49,7 @@ class App extends Component {
       bannerStatus:   false,
       reload:         true
     })
+    ReactGA.event({category: 'clear', action: 'reset'});
   }
   showBanner(status){
     this.setState(status)
@@ -57,6 +62,7 @@ class App extends Component {
     )
   }
   async onDrop(event) {
+    ReactGA.event({category: 'onDrop', action: 'upload'});
     this.setState({
       predictions:    [],
       loading:        true,
@@ -84,6 +90,7 @@ class App extends Component {
         pictureFiles[0].name
       );
       var imagePost = async () =>{
+        ReactGA.event({category: 'onDrop', action: 'requestServer'});
         try{
           return await axios.post("https://joyuriz.shop/imageUpload", formData)
         } catch(error){
@@ -92,47 +99,46 @@ class App extends Component {
       }
       var response = await imagePost()
       if(!response){
+        ReactGA.event({category: 'onDrop', action: 'noResponse'});
         this.showBanner({error : true})
       }
       else{
-      var img = document.getElementById("preview");
-      canvas.width  = img.width;
-      canvas.height = img.height;
-      var scale = Math.max(canvas.width / img.width, canvas.height / img.height);
-      var x = (canvas.width / 2) - (img.width / 2) * scale;
-      var y = (canvas.height / 2) - (img.height / 2) * scale;
-      if(response.data.success === true){
-        ctx.lineWidth = "5";
-        ctx.strokeStyle = "lightgreen";
-        var {top , bottom, left, right} = response.data
-        ctx.rect(left*scale, top*scale, (right-left)*scale, (bottom-top)*scale);
-        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
-        ctx.stroke();
-            
-        this.setState({
-          predictions: [((text)=>{
-            return ({'Yuri': '조유리', 'Yena': '최예나', 'Chaewon': '김채원'})[text]
-          })(response.data.predictions)
-        ],
-          loading :     false,
-          fileName:     response.data.path,
-          hash:         response.data.hash,
-          vote:         [response.data.voteChaewon, response.data.voteYuri, response.data.voteYena],
-          showResult:   true
-        })
-      }
-      else{
-        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
-        this.setState({
-          predictions: ["fail to find"],
-          loading : false,
-          fileName: response.data.path,
-          hash:     response.data.hash
-        })
-        this.showBanner({fail : true})
+        var img = document.getElementById("preview");
+        canvas.width  = img.width;
+        canvas.height = img.height;
+        if(response.data.success === true){
+          ReactGA.event({category: 'onDrop', action: 'success'});
+          ctx.lineWidth = "5";
+          ctx.strokeStyle = "lightgreen";
+          var {top , bottom, left, right} = response.data
+          ctx.rect(left, top, (right-left), (bottom-top));
+          ctx.drawImage(img, 0, 0, img.width, img.height);
+          ctx.stroke();
+              
+          this.setState({
+            predictions: [((text)=>{
+              return ({'Yuri': '조유리', 'Yena': '최예나', 'Chaewon': '김채원'})[text]
+            })(response.data.predictions)
+          ],
+            loading :     false,
+            fileName:     response.data.path,
+            hash:         response.data.hash,
+            vote:         [response.data.voteChaewon, response.data.voteYuri, response.data.voteYena],
+            showResult:   true
+          })
+        }
+        else{
+          ctx.drawImage(img, 0, 0, img.width, img.height);
+          this.setState({
+            predictions: ["fail to find"],
+            loading : false,
+            fileName: response.data.path,
+            hash:     response.data.hash
+          })
+          this.showBanner({fail : true})
+        }
       }
     }
-  }
   }
 
   render() {
@@ -156,6 +162,7 @@ class App extends Component {
           showBanner={this.state.fail}
         />
       <div className="bodyDiv">
+        <InfoModal></InfoModal>
         <img className="preview" id="preview" />
         <div className="upload">
             <IconButton className="iconButton" onClick={this.clear} size="small">

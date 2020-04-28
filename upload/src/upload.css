@@ -6,10 +6,11 @@ body .bodyDiv{
   height: 100%;
   margin: 0;
   padding: 0;
+  font-weight : 400;
 }
 
 body .bodyDiv {
-  font-family: 'NanumBarunGothic', sans-serif;
+  font-family: 'NanumSquare', sans-serif;
   background: -webkit-gradient(linear, left bottom, left top, from(#4f6072), to(#8699aa));
   background: -o-linear-gradient(bottom, #4f6072, #8699aa);
   background: linear-gradient(to top, #4f6072, #8699aa);
@@ -22,6 +23,49 @@ body .bodyDiv {
   -webkit-box-align: center;
           -ms-flex-align: center;
       align-items: center;
+}
+
+.initModal div{
+  -webkit-animation: fadeup 0.5s 0.5s ease both;
+          animation: fadeup 0.5s 0.5s ease both;
+  -webkit-transform: translateY(20px);
+          -ms-transform: translateY(20px);
+      transform: translateY(20px);
+  opacity: 0;
+}
+
+ul {
+  counter-reset: index;  
+  padding: 0;
+}
+
+
+li {
+  counter-increment: index; 
+  display: flex;
+  padding: 12px 0;
+  box-sizing: border-box;
+}
+
+
+li::before {
+  content: counters(index, ".", decimal-leading-zero);
+  font-size: 1.5rem;
+  text-align: right;
+  font-weight: bold;
+  min-width: 50px;
+  padding-right: 12px;
+  font-variant-numeric: tabular-nums;
+  align-self: flex-start;
+  background-image: linear-gradient(to bottom, pink, #FF509F);
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+li + li {
+  border-top: 1px solid rgba(255,255,255,0.2);
 }
 
 .upload {
@@ -67,7 +111,7 @@ body .bodyDiv {
           animation: fadeup 0.2s 0.7s ease both;
 }
 .upload .upload-files header p .up {
-  font-weight: bold;
+  font-weight: 700;
   -webkit-transform: translateX(-20px);
           -ms-transform: translateX(-20px);
       transform: translateX(-20px);
@@ -78,7 +122,7 @@ body .bodyDiv {
 }
 .upload .upload-files header p .load {
   display: inline-block;
-  font-weight: 100;
+  font-weight: 700;
   margin-left: 5px;
   -webkit-transform: translateX(-20px);
           -ms-transform: translateX(-20px);
@@ -374,7 +418,7 @@ body .bodyDiv {
   padding: 8px 15px;
   font-size: 12px;
   border-radius: 4px;
-  font-family: 'NanumBarunGothic';
+  font-family: 'NanumSquare';
   line-height: 1;
   cursor: pointer;
   -webkit-transform: translateY(15px);
@@ -668,19 +712,19 @@ body .bodyDiv {
 }
 
 #chaewon{
-  font-family:NanumBarunGothic; 
+  font-family:NanumSquare; 
   margin:5px;
   background-color:#cee5d5
 }
 
 #yuri{
-  font-family:NanumBarunGothic; 
+  font-family:NanumSquare; 
   margin:5px;
   background-color:#f3aa51
 }
 
 #yena{
-  font-family:NanumBarunGothic; 
+  font-family:NanumSquare; 
   margin:5px;
   background-color:#fcf695
 }

@@ -4,6 +4,10 @@ import CloseIcon from '@material-ui/icons/Close';
 import Modal from 'react-modal';
 import './upload.css';
 import axios from 'axios'; 
+import ReactGA from 'react-ga';
+const trackingId = 'UA-148371899-1'
+ReactGA.initialize(trackingId);
+ReactGA.pageview(window.location.pathname + window.location.search);
 const customStyles = {
     content : {
       top                   : '50%',
@@ -29,6 +33,7 @@ export default function AnimatedModal(props) {
         props.banner({bannerStatus:true})
     }
     async function imagePost(who){
+        ReactGA.event({category: 'userTrain', action: 'updateDB'});
         if(props.fileName !==''){
             try{
                 return await axios.post("https://joyuriz.shop/userTrain", {
@@ -39,9 +44,6 @@ export default function AnimatedModal(props) {
             } catch(error){
             console.log(error)
             }
-        }
-        else{
-            console.log('당신은,,정말,,나쁜,,사람이예요')
         }
     }
     return (
