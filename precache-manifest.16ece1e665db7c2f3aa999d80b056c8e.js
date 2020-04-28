@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b5f289e727542b1d8aed8b54076f05ce",
+    "revision": "207f6e5f64fe957040733902f65db312",
     "url": "/JoyurIZ-WEB/index.html"
   },
   {
-    "revision": "1ba43a0c35ecb4765c29",
-    "url": "/JoyurIZ-WEB/static/css/main.c8e4d9d7.chunk.css"
+    "revision": "50f9817d022333b4322c",
+    "url": "/JoyurIZ-WEB/static/css/main.4f9e7ee3.chunk.css"
   },
   {
     "revision": "84219427839c85c66d37",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/JoyurIZ-WEB/static/js/2.713331b1.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "1ba43a0c35ecb4765c29",
-    "url": "/JoyurIZ-WEB/static/js/main.1eeeefdb.chunk.js"
+    "revision": "50f9817d022333b4322c",
+    "url": "/JoyurIZ-WEB/static/js/main.414126c3.chunk.js"
   },
   {
     "revision": "4f4a6959143a8969cf45",

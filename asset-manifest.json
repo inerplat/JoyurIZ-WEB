@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/JoyurIZ-WEB/static/css/main.c8e4d9d7.chunk.css",
-    "main.js": "/JoyurIZ-WEB/static/js/main.1eeeefdb.chunk.js",
-    "main.js.map": "/JoyurIZ-WEB/static/js/main.1eeeefdb.chunk.js.map",
+    "main.css": "/JoyurIZ-WEB/static/css/main.4f9e7ee3.chunk.css",
+    "main.js": "/JoyurIZ-WEB/static/js/main.414126c3.chunk.js",
+    "main.js.map": "/JoyurIZ-WEB/static/js/main.414126c3.chunk.js.map",
     "runtime-main.js": "/JoyurIZ-WEB/static/js/runtime-main.7bdd4ff6.js",
     "runtime-main.js.map": "/JoyurIZ-WEB/static/js/runtime-main.7bdd4ff6.js.map",
     "static/js/2.713331b1.chunk.js": "/JoyurIZ-WEB/static/js/2.713331b1.chunk.js",
     "static/js/2.713331b1.chunk.js.map": "/JoyurIZ-WEB/static/js/2.713331b1.chunk.js.map",
     "index.html": "/JoyurIZ-WEB/index.html",
-    "precache-manifest.c5f7670a3567131d49947af77f16383a.js": "/JoyurIZ-WEB/precache-manifest.c5f7670a3567131d49947af77f16383a.js",
+    "precache-manifest.16ece1e665db7c2f3aa999d80b056c8e.js": "/JoyurIZ-WEB/precache-manifest.16ece1e665db7c2f3aa999d80b056c8e.js",
     "service-worker.js": "/JoyurIZ-WEB/service-worker.js",
-    "static/css/main.c8e4d9d7.chunk.css.map": "/JoyurIZ-WEB/static/css/main.c8e4d9d7.chunk.css.map",
+    "static/css/main.4f9e7ee3.chunk.css.map": "/JoyurIZ-WEB/static/css/main.4f9e7ee3.chunk.css.map",
     "static/js/2.713331b1.chunk.js.LICENSE.txt": "/JoyurIZ-WEB/static/js/2.713331b1.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.7bdd4ff6.js",
     "static/js/2.713331b1.chunk.js",
-    "static/css/main.c8e4d9d7.chunk.css",
-    "static/js/main.1eeeefdb.chunk.js"
+    "static/css/main.4f9e7ee3.chunk.css",
+    "static/js/main.414126c3.chunk.js"
   ]
 }
