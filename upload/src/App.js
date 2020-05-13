@@ -17,6 +17,7 @@ const override = css`
   margin: 0 auto;
   border-color: red;
 `;
+
 class App extends Component {
     constructor(props) {
     super(props);
@@ -35,6 +36,25 @@ class App extends Component {
     this.onDrop = this.onDrop.bind(this);
     this.clear = this.clear.bind(this);
     this.showBanner = this.showBanner.bind(this);
+    this.paste = this.paste.bind(this);
+  }
+  componentDidMount() {
+    window.addEventListener("paste", this.paste);
+  }
+  async paste(event){
+    var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    console.log(JSON.stringify(items));
+    var blob = null;
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf("image") === 0) {
+        blob = items[i].getAsFile();
+      }
+    }
+    // load image if there is a pasted image
+    if (blob !== null) {
+      console.log(blob)
+      this.onDrop([blob])
+    }
   }
   clear(){
     this.setState({
@@ -62,6 +82,7 @@ class App extends Component {
     )
   }
   async onDrop(event) {
+    console.log(event)
     ReactGA.event({category: 'onDrop', action: 'upload'});
     this.setState({
       predictions:    [],
