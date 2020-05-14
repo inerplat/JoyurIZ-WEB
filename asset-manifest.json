@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/JoyurIZ-WEB/static/css/main.4f9e7ee3.chunk.css",
-    "main.js": "/JoyurIZ-WEB/static/js/main.414126c3.chunk.js",
-    "main.js.map": "/JoyurIZ-WEB/static/js/main.414126c3.chunk.js.map",
+    "main.css": "/JoyurIZ-WEB/static/css/main.c835b43e.chunk.css",
+    "main.js": "/JoyurIZ-WEB/static/js/main.7675cde9.chunk.js",
+    "main.js.map": "/JoyurIZ-WEB/static/js/main.7675cde9.chunk.js.map",
     "runtime-main.js": "/JoyurIZ-WEB/static/js/runtime-main.7bdd4ff6.js",
     "runtime-main.js.map": "/JoyurIZ-WEB/static/js/runtime-main.7bdd4ff6.js.map",
-    "static/js/2.713331b1.chunk.js": "/JoyurIZ-WEB/static/js/2.713331b1.chunk.js",
-    "static/js/2.713331b1.chunk.js.map": "/JoyurIZ-WEB/static/js/2.713331b1.chunk.js.map",
+    "static/js/2.8b0dd1a2.chunk.js": "/JoyurIZ-WEB/static/js/2.8b0dd1a2.chunk.js",
+    "static/js/2.8b0dd1a2.chunk.js.map": "/JoyurIZ-WEB/static/js/2.8b0dd1a2.chunk.js.map",
     "index.html": "/JoyurIZ-WEB/index.html",
-    "precache-manifest.16ece1e665db7c2f3aa999d80b056c8e.js": "/JoyurIZ-WEB/precache-manifest.16ece1e665db7c2f3aa999d80b056c8e.js",
+    "precache-manifest.ccd353539797731198e29e870de82577.js": "/JoyurIZ-WEB/precache-manifest.ccd353539797731198e29e870de82577.js",
     "service-worker.js": "/JoyurIZ-WEB/service-worker.js",
-    "static/css/main.4f9e7ee3.chunk.css.map": "/JoyurIZ-WEB/static/css/main.4f9e7ee3.chunk.css.map",
-    "static/js/2.713331b1.chunk.js.LICENSE.txt": "/JoyurIZ-WEB/static/js/2.713331b1.chunk.js.LICENSE.txt"
+    "static/css/main.c835b43e.chunk.css.map": "/JoyurIZ-WEB/static/css/main.c835b43e.chunk.css.map",
+    "static/js/2.8b0dd1a2.chunk.js.LICENSE.txt": "/JoyurIZ-WEB/static/js/2.8b0dd1a2.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.7bdd4ff6.js",
-    "static/js/2.713331b1.chunk.js",
-    "static/css/main.4f9e7ee3.chunk.css",
-    "static/js/main.414126c3.chunk.js"
+    "static/js/2.8b0dd1a2.chunk.js",
+    "static/css/main.c835b43e.chunk.css",
+    "static/js/main.7675cde9.chunk.js"
   ]
 }
