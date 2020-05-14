@@ -17,6 +17,7 @@ const override = css`
   margin: 0 auto;
   border-color: red;
 `;
+
 class App extends Component {
     constructor(props) {
     super(props);
@@ -35,6 +36,25 @@ class App extends Component {
     this.onDrop = this.onDrop.bind(this);
     this.clear = this.clear.bind(this);
     this.showBanner = this.showBanner.bind(this);
+    this.paste = this.paste.bind(this);
+  }
+  componentDidMount() {
+    window.addEventListener("paste", this.paste);
+  }
+  paste(event){
+    this.clear()
+    var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    console.log(JSON.stringify(items));
+    var blob = null;
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf("image") === 0) {
+        blob = items[i].getAsFile();
+      }
+    }
+    if (blob !== null) {
+      console.log(blob)
+      this.onDrop([blob])
+    }
   }
   clear(){
     this.setState({
@@ -62,6 +82,7 @@ class App extends Component {
     )
   }
   async onDrop(event) {
+    console.log(event)
     ReactGA.event({category: 'onDrop', action: 'upload'});
     this.setState({
       predictions:    [],
@@ -188,9 +209,11 @@ class App extends Component {
                               accept:'image/*'
                             })} />
                             <div className="dropText">
-                            <p className={this.state.reload ? 'nomalP' : 'fadeP'}>업로드할 파일을 드래그하거나</p> 
-                            <p className={this.state.reload ? 'nomalP' : 'fadeP'}>박스를 
-                            <span style={{color:'lightBlue'}}> 클릭</span>해주세요</p>
+                              <p className={this.state.reload ? 'nomalP' : 'fadeP'}>업로드할 파일을 드래그하거나</p> 
+                              <p className={this.state.reload ? 'nomalP' : 'fadeP'}>박스를 <span style={{color:'lightBlue'}}> 클릭</span>해주세요</p>
+                              <br/>
+                              <p className={this.state.reload ? 'nomalP' : 'fadeP'}><span style={{color:'lightBlue'}}>Ctrl+V</span>로 클립보드에 있는 이미지를</p>
+                              <p className={this.state.reload ? 'nomalP' : 'fadeP'}>붙여 넣을 수 있습니다.</p> 
                             </div>
                           </div>
                         </section>
