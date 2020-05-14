@@ -41,7 +41,8 @@ class App extends Component {
   componentDidMount() {
     window.addEventListener("paste", this.paste);
   }
-  async paste(event){
+  paste(event){
+    this.clear()
     var items = (event.clipboardData || event.originalEvent.clipboardData).items;
     console.log(JSON.stringify(items));
     var blob = null;
@@ -50,7 +51,6 @@ class App extends Component {
         blob = items[i].getAsFile();
       }
     }
-    // load image if there is a pasted image
     if (blob !== null) {
       console.log(blob)
       this.onDrop([blob])
@@ -209,9 +209,11 @@ class App extends Component {
                               accept:'image/*'
                             })} />
                             <div className="dropText">
-                            <p className={this.state.reload ? 'nomalP' : 'fadeP'}>업로드할 파일을 드래그하거나</p> 
-                            <p className={this.state.reload ? 'nomalP' : 'fadeP'}>박스를 
-                            <span style={{color:'lightBlue'}}> 클릭</span>해주세요</p>
+                              <p className={this.state.reload ? 'nomalP' : 'fadeP'}>업로드할 파일을 드래그하거나</p> 
+                              <p className={this.state.reload ? 'nomalP' : 'fadeP'}>박스를 <span style={{color:'lightBlue'}}> 클릭</span>해주세요</p>
+                              <br/>
+                              <p className={this.state.reload ? 'nomalP' : 'fadeP'}><span style={{color:'lightBlue'}}>Ctrl+V</span>로 클립보드에 있는 이미지를</p>
+                              <p className={this.state.reload ? 'nomalP' : 'fadeP'}>붙여 넣을 수 있습니다.</p> 
                             </div>
                           </div>
                         </section>
