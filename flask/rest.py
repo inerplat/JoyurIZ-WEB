@@ -12,6 +12,7 @@ import magic
 import face_recognition as FR
 import magic
 import gc
+from flask import request
 # import tracemalloc
 # tracemalloc.start(10)
 app = flask.Flask(__name__)
@@ -31,41 +32,61 @@ def prepare_image(image, target):
     result = np.vstack([x])
     return (result, T, R, B, L)
 
+
+@app.route("/predict", methods=["GET"])
+def localfile_predict():
+    image = None
+    filename = request.args.get('filename')
+    try:
+        with open(filename, "r") as f:
+            image = f.read()
+    except:
+        image = None
+    return predict(image)
+
+
+
 @app.route("/predict", methods=["POST"])
-def predict():
+def formdata_predict():
+    image = None
+    if flask.request.method == "POST" and flask.request.files.get("image"):
+        image = flask.request.files["image"].read()
+    return predict(image)
+
+
+def predict(postImage):
     # time1 = tracemalloc.take_snapshot()
     data = {"success": False}
-    if flask.request.method == "POST":
-        if flask.request.files.get("image"):
-            postImage = flask.request.files["image"].read()
-            extention = magic.from_buffer(postImage).split()[0].upper()
-            if extention == 'GIF':
-                imageObject = Image.open(io.BytesIO(postImage))
-                imageObject.seek(0) 
-                imageObject = imageObject.convert('RGB')
-                image = np.array(imageObject)
-                imageObject.close()
-            elif extention != 'JPEG' and extention != 'PNG':
-                return flask.jsonify(data)
-            else:
-                imageObject = Image.open(io.BytesIO(postImage))
-                image = imageObject.convert('RGB')
-                imageObject.close()
-            image, T, R, B, L = prepare_image(image, target=(256, 256))
-            if image is False:
-                return flask.jsonify(data)
- 
-            preds = numpy.argmax(model(image).numpy())
-            clear_session()
-            image = None
-            postImage = None
-            data["predictions"] = predictList[preds]   
-            data['top'] = T
-            data['right'] = R
-            data['bottom'] = B
-            data['left'] = L
-            data["success"] = True
-            app.logger.info(data)
+    if postImage is None:
+        return data
+    extention = magic.from_buffer(postImage).split()[0].upper()
+    if extention == 'GIF':
+        imageObject = Image.open(io.BytesIO(postImage))
+        imageObject.seek(0) 
+        imageObject = imageObject.convert('RGB')
+        image = np.array(imageObject)
+        imageObject.close()
+    elif extention != 'JPEG' and extention != 'PNG':
+        return flask.jsonify(data)
+    else:
+        imageObject = Image.open(io.BytesIO(postImage))
+        image = imageObject.convert('RGB')
+        imageObject.close()
+    image, T, R, B, L = prepare_image(image, target=(256, 256))
+    if image is False:
+        return flask.jsonify(data)
+
+    preds = numpy.argmax(model(image).numpy())
+    clear_session()
+    image = None
+    postImage = None
+    data["predictions"] = predictList[preds]   
+    data['top'] = T
+    data['right'] = R
+    data['bottom'] = B
+    data['left'] = L
+    data["success"] = True
+    app.logger.info(data)
     # time2 = tracemalloc.take_snapshot()
     # stats = time2.compare_to(time1, 'traceback')
     # top = stats[0]

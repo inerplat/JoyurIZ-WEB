@@ -34,17 +34,18 @@ export default function AnimatedModal(props) {
     }
     async function imagePost(who){
         ReactGA.event({category: 'userTrain', action: 'updateDB'});
-        if(props.fileName !==''){
-            try{
-                return await axios.post("https://joyuriz.shop/userTrain", {
-                    'fileName':       props.fileName,
-                    'userTrain':      who,
-                    'hash':           props.hash
-                })
-            } catch(error){
+
+        try{
+//                return await axios.post("https://joyuriz.shop/userTrain", {
+            return await axios.post("http://localhost/userTrain", {
+                //'fileName':       props.fileName,
+                'userTrain':      who,
+                'hash':           props.hash
+            })
+        } catch(error){
             console.log(error)
-            }
         }
+        
     }
     return (
         <div className="userTrain">

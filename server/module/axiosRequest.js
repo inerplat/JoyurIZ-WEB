@@ -6,7 +6,7 @@ const axiosRequest = async (filePath)=>{
   const formData = new FormData();
   formData.append("image", newFile, newFile.name);
   try{
-    var response = await axios.create({headers: formData.getHeaders()}).post("http://joyuriz-api:5000/predict", formData)
+    var response = await axios.create({headers: formData.getHeaders()}).post("http://localhost:5000/predict", formData)
     return response.data
   } catch(e){
     console.log("[ERROR|axiosRequest] ", e) 
