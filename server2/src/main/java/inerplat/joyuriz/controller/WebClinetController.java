@@ -1,0 +1,40 @@
+package inerplat.joyuriz.controller;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.MultipartBodyBuilder;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+import java.lang.String;
+
+@RestController
+public class WebClinetController {
+    private WebClient webClient = null;
+    private String uri;
+
+    public void setUri(String uri){
+        this.uri = uri;
+        this.webClient = WebClient.builder()
+                .baseUrl("http://localhost:5000")
+                .build();
+    }
+    public Mono requestDetect(MultipartFile file, Class clazz) {
+        MultipartBodyBuilder builder = new MultipartBodyBuilder();
+        builder.part("image", file.getResource());
+        MultiValueMap<String, HttpEntity<?>> body = builder.build();
+        var result =  webClient.mutate()
+                .build()
+                .post()
+                .uri(uri)
+                .contentType(MediaType.MULTIPART_FORM_DATA)
+                .body(BodyInserters.fromMultipartData(body))
+                .retrieve()
+                .bodyToMono(clazz);
+        return result;
+    }
+}
