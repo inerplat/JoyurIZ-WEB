@@ -16,6 +16,7 @@ build/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
+!**/src/main/resources/application.properties
 
 ### IntelliJ IDEA ###
 .idea
@@ -36,3 +37,4 @@ out/
 ### VS Code ###
 .vscode/
 /uploads/
+

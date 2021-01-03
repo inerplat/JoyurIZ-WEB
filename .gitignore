@@ -10,3 +10,4 @@ server/keys/
 server2/.idea
 .idea/*
 server2/uploads
+server2/src/main/resources/application.properties

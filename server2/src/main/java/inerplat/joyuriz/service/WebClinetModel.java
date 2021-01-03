@@ -1,4 +1,4 @@
-package inerplat.joyuriz.controller;
+package inerplat.joyuriz.service;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType;
@@ -13,21 +13,21 @@ import reactor.core.publisher.Mono;
 import java.lang.String;
 
 @RestController
-public class WebClinetController {
+public class WebClinetModel {
     private WebClient webClient = null;
     private String uri;
 
-    public void setUri(String uri){
+    public void setUri(String baseUri){
         this.uri = uri;
         this.webClient = WebClient.builder()
-                .baseUrl("http://localhost:5000")
+                .baseUrl(baseUri)
                 .build();
     }
-    public Mono requestDetect(MultipartFile file, Class clazz) {
+    public Mono<?> requestDetect(String uri, MultipartFile file, Class<?> clazz) {
         MultipartBodyBuilder builder = new MultipartBodyBuilder();
         builder.part("image", file.getResource());
         MultiValueMap<String, HttpEntity<?>> body = builder.build();
-        var result =  webClient.mutate()
+        return webClient.mutate()
                 .build()
                 .post()
                 .uri(uri)
@@ -35,6 +35,5 @@ public class WebClinetController {
                 .body(BodyInserters.fromMultipartData(body))
                 .retrieve()
                 .bodyToMono(clazz);
-        return result;
     }
 }
