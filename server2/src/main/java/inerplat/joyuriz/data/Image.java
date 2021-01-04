@@ -1,13 +1,17 @@
 package inerplat.joyuriz.data;
 
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 
 @Entity
 @Table(name="feedback")
-@Data
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,22 +37,23 @@ public class Image {
     private String predict;
 
     @Column(name = "vote_chaewon")
+    @Setter
     private Integer chaewon;
 
     @Column(name = "vote_yuri")
+    @Setter
     private Integer yuri;
 
     @Column(name = "vote_yaena")
+    @Setter
     private Integer yaena;
 
     @Column(name = "path")
     private String path;
 
     @Column(name = "request")
+    @Setter
     private Integer request;
-
-    public Image() {
-    }
 
     public Image(String hash, Integer face_top, Integer face_right, Integer face_bottom, Integer face_left, String predict, Integer chaewon, Integer yuri, Integer yaena, String path, Integer request) {
         this.hash = hash;
