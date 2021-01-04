@@ -1,5 +1,6 @@
 package inerplat.joyuriz.service;
 
+import inerplat.joyuriz.data.Response;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.MultipartBodyBuilder;
@@ -10,20 +11,16 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.lang.String;
-
 @RestController
-public class WebClinetModel {
+public class WebClientModel {
     private WebClient webClient = null;
-    private String uri;
 
     public void setUri(String baseUri){
-        this.uri = uri;
         this.webClient = WebClient.builder()
                 .baseUrl(baseUri)
                 .build();
     }
-    public Mono<?> requestDetect(String uri, MultipartFile file, Class<?> clazz) {
+    public Mono<Response> requestDetect(String uri, MultipartFile file, Class<Response> clazz) {
         MultipartBodyBuilder builder = new MultipartBodyBuilder();
         builder.part("image", file.getResource());
         MultiValueMap<String, HttpEntity<?>> body = builder.build();

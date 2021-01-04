@@ -52,7 +52,7 @@ public class ImageUploadController {
                                    RedirectAttributes redirectAttributes) throws IOException, NoSuchAlgorithmException {
         Assert.isTrue(this.notImage(file), "Uploaded File is Not Image");
 
-        WebClinetModel client = new WebClinetModel();
+        WebClientModel client = new WebClientModel();
 
         String hash = fileStorageService.getHash(file);
         Image img = psql.findByHash(hash);
@@ -66,7 +66,7 @@ public class ImageUploadController {
 
 
         client.setUri("http://localhost:5000");
-        Response result = (Response) client.requestDetect("/predict", file, Response.class).block();
+        Response result = client.requestDetect("/predict", file, Response.class).block();
         result.setHash(hash);
 
         psql.saveAndFlush(new Image(
