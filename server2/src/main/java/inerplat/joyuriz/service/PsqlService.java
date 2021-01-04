@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface UserFeedback extends JpaRepository<Image, Long> {
-    List<Image> findByHash(String hash);
+public interface PsqlService extends JpaRepository<Image, Long> {
+    Image findByHash(String hash);
 
     @Override
     List<Image> findAll();

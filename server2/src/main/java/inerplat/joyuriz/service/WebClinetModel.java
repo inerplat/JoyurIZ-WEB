@@ -29,8 +29,7 @@ public class WebClinetModel {
         MultiValueMap<String, HttpEntity<?>> body = builder.build();
         return webClient.mutate()
                 .build()
-                .post()
-                .uri(uri)
+                .post().uri(uri)
                 .contentType(MediaType.MULTIPART_FORM_DATA)
                 .body(BodyInserters.fromMultipartData(body))
                 .retrieve()

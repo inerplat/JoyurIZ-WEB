@@ -5,9 +5,13 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.stream.Stream;
 import java.util.UUID;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -16,11 +20,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.xml.bind.DatatypeConverter;
+
 @Service
 public class FileStorageServiceModel implements FileStorageService{
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final Path root = Paths.get("uploads");
+    private static String hash = null;
 
     @Override
     public void init() {
@@ -33,17 +40,16 @@ public class FileStorageServiceModel implements FileStorageService{
 
     @Override
     public String save(MultipartFile file) {
+        String filename = file.getOriginalFilename();
+        String newFileName = null;
         try {
-            String filename = file.getOriginalFilename();
-            String newFileName = UUID.randomUUID()
-                    .toString()
-                    .replace("-", "")
-                    .concat(".".concat(filename.substring(filename.lastIndexOf(".") + 1)));
+            newFileName = getHash(file).concat(".".concat(filename.substring(filename.lastIndexOf(".") + 1)));
             Files.copy(file.getInputStream(), this.root.resolve(newFileName));
-            return newFileName;
         } catch (Exception e) {
-            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+            //throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+            logger.error(e.getMessage());
         }
+        return newFileName;
     }
 
     @Override
@@ -76,4 +82,10 @@ public class FileStorageServiceModel implements FileStorageService{
         }
     }
 
+    @Override
+    public String getHash(MultipartFile file) throws NoSuchAlgorithmException, IOException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(file.getBytes());
+        return DatatypeConverter.printHexBinary(md.digest()).toUpperCase();
+    }
 }

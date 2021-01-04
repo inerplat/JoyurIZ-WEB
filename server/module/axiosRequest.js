@@ -7,10 +7,10 @@ const axiosRequest = async (filePath)=>{
   formData.append("image", newFile, newFile.name);
   try{
     var response = await axios.create({headers: formData.getHeaders()}).post("http://localhost:5000/predict", formData)
-    return response.data
+    return response
   } catch(e){
     console.log("[ERROR|axiosRequest] ", e) 
-    return error
+    return e
   }
 }
 module.exports = axiosRequest

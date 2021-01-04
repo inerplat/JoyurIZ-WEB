@@ -37,9 +37,8 @@ export default function AnimatedModal(props) {
 
         try{
 //                return await axios.post("https://joyuriz.shop/userTrain", {
-            return await axios.post("http://localhost/userTrain", {
-                //'fileName':       props.fileName,
-                'userTrain':      who,
+            return await axios.post("http://localhost:8080/userTrain", {
+                'feedback':      who,
                 'hash':           props.hash
             })
         } catch(error){

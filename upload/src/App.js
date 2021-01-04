@@ -20,15 +20,13 @@ const override = css`
 
 class App extends Component {
     constructor(props) {
-    super(props);
-    this.state = { 
+      super(props);
+    this.state = {
       error:          false,
       fail:           false,
-      predictions:    [],
+      predict:    [],
       loading:        false,
-      fileName:       '',
       hash:           '',
-      vote:           [],
       showResult:     false,
       bannerStatus:   false,
       reload:         false
@@ -60,11 +58,9 @@ class App extends Component {
     this.setState({
       error:          false,
       fail:           false,
-      predictions:    [],
+      predict:    [],
       loading:        false,
-      fileName:       '',
       hash:           '',
-      vote:           [],
       showResult:     false,
       bannerStatus:   false,
       reload:         true
@@ -85,11 +81,9 @@ class App extends Component {
     console.log(event)
     ReactGA.event({category: 'onDrop', action: 'upload'});
     this.setState({
-      predictions:    [],
+      predict:    [],
       loading:        true,
-      fileName:       '',
       hash:           '',
-      vote:           [],
       showResult:     false
     })
     var pictureFiles = event
@@ -116,8 +110,6 @@ class App extends Component {
 //          return await axios.post("https://joyuriz.shop/imageUpload", formData)
           return await axios.post("http://localhost:8080/upload/image", formData)
           //return await axios.post("http://localhost/imageUpload", formData)
-
-
         } catch(error){
           console.log(error)
         }
@@ -131,7 +123,8 @@ class App extends Component {
         var img = document.getElementById("preview");
         canvas.width  = img.width;
         canvas.height = img.height;
-        if(response.data.success === true){
+        
+        if(response.status === 200){
           ReactGA.event({category: 'onDrop', action: 'success'});
           ctx.lineWidth = "5";
           ctx.strokeStyle = "lightgreen";
@@ -141,23 +134,20 @@ class App extends Component {
           ctx.stroke();
               
           this.setState({
-            predictions: [((text)=>{
+            predict: [((text)=>{
               return ({'Yuri': '조유리', 'Yena': '최예나', 'Chaewon': '김채원'})[text]
-            })(response.data.predictions)
+            })(response.data.predict)
           ],
             loading :     false,
-            fileName:     response.data.path,
             hash:         response.data.hash,
-            vote:         [response.data.voteChaewon, response.data.voteYuri, response.data.voteYena],
             showResult:   true
           })
         }
         else{
           ctx.drawImage(img, 0, 0, img.width, img.height);
           this.setState({
-            predictions: ["fail to find"],
+            predict: ["fail to find"],
             loading : false,
-            fileName: response.data.path,
             hash:     response.data.hash
           })
           this.showBanner({fail : true})
@@ -231,14 +221,13 @@ class App extends Component {
                     {
                       this.state.showResult ?(
                       <div className="resultBox">
-                        <div className="resultDiv">분석 결과 : {this.state.predictions[0]}</div>
+                        <div className="resultDiv">분석 결과 : {this.state.predict[0]}</div>
                         <div className="resultDiv">
                           <AnimatedModal 
                             banner={this.showBanner}
                             clear={this.clear}
-                            fileName={this.state.fileName} 
-                            hash={this.state.hash} 
-                            prediction={this.state.predictions[0]}/>
+                            hash={this.state.hash} />
+                            
                         </div>
                       </div>
                       ) :null

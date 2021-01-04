@@ -20,16 +20,16 @@ public class Image {
     private String hash;
 
     @Column(name = "face_top")
-    private Integer face_top;
+    private Integer top;
 
     @Column(name = "face_right")
-    private Integer face_right;
+    private Integer right;
 
     @Column(name = "face_bottom")
-    private Integer face_bottom;
+    private Integer bottom;
 
     @Column(name = "face_left")
-    private Integer face_left;
+    private Integer left;
 
 
     @Column(name = "predict")
@@ -55,15 +55,29 @@ public class Image {
 
     public Image(String hash, Integer face_top, Integer face_right, Integer face_bottom, Integer face_left, String predict, Integer vote_chaewon, Integer vote_yuri, Integer vote_yaena, String path, Integer request) {
         this.hash = hash;
-        this.face_top = face_top;
-        this.face_right = face_right;
-        this.face_bottom = face_bottom;
-        this.face_left = face_left;
+        this.top = face_top;
+        this.right = face_right;
+        this.bottom = face_bottom;
+        this.left = face_left;
         this.predict = predict;
         this.vote_chaewon = vote_chaewon;
         this.vote_yuri = vote_yuri;
         this.vote_yaena = vote_yaena;
         this.path = path;
         this.request = request;
+    }
+
+    public Image(Response res, Integer chaewon, Integer yaena, Integer yuri, Integer request, String path){
+        this.hash = res.getHash();
+        this.top = res.getTop();
+        this.right = res.getRight();
+        this.bottom = res.getBottom();
+        this.left = res.getLeft();
+        this.predict = res.getPredict();
+        this.vote_chaewon = chaewon;
+        this.vote_yaena = yaena;
+        this.vote_yuri = yuri;
+        this.request = request;
+        this.path = path;
     }
 }

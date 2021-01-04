@@ -70,28 +70,21 @@ app.post('/imageUpload' , multerOption.single('image'), async (requset, response
     try{
       var axiosResponse = await axiosRequest('userUpload/'+fileName)
       console.log("[axiosResponse] : ", axiosResponse)
-      if(axiosResponse['success'] == true){
+      if(axiosResponse.status == 200){
+          responseData = axiosResponse.data
           var imageInfo = {
-            success:      true,
             hash:         hash,
-            predictions:  axiosResponse["predictions"],
-            top:          axiosResponse["top"],
-            bottom:       axiosResponse["bottom"],
-            left:         axiosResponse["left"],
-            right:        axiosResponse["right"],
-            path:         fileName,
-            voteChaewon:  0,
-            voteYuri:     0,
-            voteYena:     0,
-            request:      1,
+            predictions:  responseData["predictions"],
+            top:          responseData["top"],
+            bottom:       responseData["bottom"],
+            left:         responseData["left"],
+            right:        responseData["right"]
           }
           Image.create(imageInfo)
           response.json(imageInfo)
       }
       else{
         response.json({
-          success:       false,
-          path:          fileName,
           hash:          hash     
         })
       }
