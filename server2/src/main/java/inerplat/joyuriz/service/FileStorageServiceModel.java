@@ -1,5 +1,13 @@
 package inerplat.joyuriz.service;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -9,22 +17,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.stream.Stream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.xml.bind.DatatypeConverter;
-
 @Service
+@Slf4j
 public class FileStorageServiceModel implements FileStorageService{
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final Path root = Paths.get("uploads");
-    private static String hash = null;
+    private static final Path root = Paths.get("uploads");
 
     @Override
     public void init() {
@@ -44,7 +41,7 @@ public class FileStorageServiceModel implements FileStorageService{
             Files.copy(file.getInputStream(), this.root.resolve(newFileName));
         } catch (Exception e) {
             //throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
-            logger.error(e.getMessage());
+            log.error(e.getMessage());
         }
         return newFileName;
     }

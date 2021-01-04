@@ -1,51 +1,33 @@
 package inerplat.joyuriz.controller;
 
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import inerplat.joyuriz.data.Image;
 import inerplat.joyuriz.data.Response;
+import inerplat.joyuriz.service.FileStorageService;
 import inerplat.joyuriz.service.PsqlService;
-import inerplat.joyuriz.service.WebClinetModel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import inerplat.joyuriz.service.WebClientModel;
+import inerplat.joyuriz.util.ImageUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
-import inerplat.joyuriz.service.FileStorageService;
-
-
-
 @CrossOrigin(origins = "http://localhost:3000")
-@Controller()
+@RestController
+@RequiredArgsConstructor
 public class ImageUploadController {
-    @Autowired
-    FileStorageService fileStorageService;
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private ObjectMapper mapper;
-
-    @Autowired
-    private PsqlService psql;
+    private final FileStorageService fileStorageService;
+    private final PsqlService psql;
 
     @PostMapping("/upload/image")
-    @ResponseBody
-    public ResponseEntity<?> processImage(@RequestParam("image") MultipartFile file,
-                                   RedirectAttributes redirectAttributes) throws IOException, NoSuchAlgorithmException {
+    public ResponseEntity<Response> processImage(@RequestParam("image") MultipartFile file) throws IOException, NoSuchAlgorithmException {
         Assert.isTrue(ImageUtil.isImage(file), "Uploaded File is Not Image");
 
         WebClientModel client = new WebClientModel();
