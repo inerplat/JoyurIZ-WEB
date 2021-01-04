@@ -55,7 +55,7 @@ public class ImageUploadController {
         if(img != null){
             img.setRequest(img.getRequest()+1);
             psql.saveAndFlush(img);
-            return new ResponseEntity<>(new Response(img, hash), HttpStatus.OK);
+            return ResponseEntity.ok(new Response(img, hash));
         }
 
         String newFileName = fileStorageService.save(file);
@@ -71,10 +71,7 @@ public class ImageUploadController {
                 "localhost:image/" + newFileName
         ));
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
-
+        return ResponseEntity.ok(result);
     }
-
-
 
 }

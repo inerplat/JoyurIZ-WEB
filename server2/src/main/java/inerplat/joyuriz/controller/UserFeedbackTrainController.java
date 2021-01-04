@@ -35,20 +35,25 @@ public class UserFeedbackTrainController {
 
         Image img = psql.findByHash(hash);
         if(img == null)
-            return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body("Bad request");
 
-        if(feedback.equals("Chaewon"))
-            img.setChaewon(img.getChaewon()+1);
-        else if(feedback.equals("Yaena"))
-            img.setYaena(img.getYaena()+1);
-        else if(feedback.equals("Yuri"))
-            img.setYuri(img.getYuri()+1);
-        else
-            return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
+        switch (feedback) {
+            case "Chaewon":
+                img.setChaewon(img.getChaewon() + 1);
+                break;
+            case "Yaena":
+                img.setYaena(img.getYaena() + 1);
+                break;
+            case "Yuri":
+                img.setYuri(img.getYuri() + 1);
+                break;
+            default:
+                return ResponseEntity.badRequest().body("Bad request");
+        }
 
         psql.saveAndFlush(img);
 
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+        return ResponseEntity.ok("OK");
     }
 
 
