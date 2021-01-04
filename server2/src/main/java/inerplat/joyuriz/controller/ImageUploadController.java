@@ -39,10 +39,6 @@ public class ImageUploadController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private ObjectMapper mapper;
 
-    public boolean notImage(MultipartFile file) {
-        return file.getContentType().split("/")[0].equals("image");
-    }
-
     @Autowired
     private PsqlService psql;
 
@@ -50,7 +46,7 @@ public class ImageUploadController {
     @ResponseBody
     public ResponseEntity<?> processImage(@RequestParam("image") MultipartFile file,
                                    RedirectAttributes redirectAttributes) throws IOException, NoSuchAlgorithmException {
-        Assert.isTrue(this.notImage(file), "Uploaded File is Not Image");
+        Assert.isTrue(ImageUtil.isImage(file), "Uploaded File is Not Image");
 
         WebClientModel client = new WebClientModel();
 
