@@ -135,7 +135,7 @@ class App extends Component {
               
           this.setState({
             predict: [((text)=>{
-              return ({'Yuri': '조유리', 'Yena': '최예나', 'Chaewon': '김채원'})[text]
+              return ({'Yuri': '조유리', 'Yaena': '최예나', 'Chaewon': '김채원'})[text]
             })(response.data.predict)
           ],
             loading :     false,

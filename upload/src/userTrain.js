@@ -37,7 +37,7 @@ export default function AnimatedModal(props) {
 
         try{
 //                return await axios.post("https://joyuriz.shop/userTrain", {
-            return await axios.post("http://localhost:8080/userTrain", {
+            return await axios.post("http://localhost:8080/feedback", {
                 'feedback':      who,
                 'hash':           props.hash
             })
@@ -70,7 +70,7 @@ export default function AnimatedModal(props) {
                     <div>
                     <Button id="chaewon" variant="contained" onClick={e=>click('Chaewon')}>김채원</Button>
                     <Button id="yuri" variant="contained" onClick={e=>click('Yuri')}>조유리</Button>
-                    <Button id="yena" variant="contained" onClick={e=>click('Yena')}>최예나</Button>
+                    <Button id="yaena" variant="contained" onClick={e=>click('Yaena')}>최예나</Button>
                     </div>
                 </div>
             </Modal>

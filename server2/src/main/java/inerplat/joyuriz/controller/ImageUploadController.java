@@ -24,15 +24,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
-
-import lombok.Data;
 
 import inerplat.joyuriz.service.FileStorageService;
 
-import javax.xml.bind.DatatypeConverter;
 
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -62,6 +57,8 @@ public class ImageUploadController {
         String hash = fileStorageService.getHash(file);
         Image img = psql.findByHash(hash);
         if(img != null){
+            img.setRequest(img.getRequest()+1);
+            psql.saveAndFlush(img);
             return new ResponseEntity<>(new Response(img, hash), HttpStatus.OK);
         }
 
