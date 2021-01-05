@@ -1,8 +1,9 @@
-FROM openjdk:11-jdk AS build
+FROM openjdk:11-jdk-slim
 
 WORKDIR /workspace/app
 
 COPY . .
+
 RUN ./gradlew clean build
 
 ARG JAR_FILE=build/libs/*.jar
