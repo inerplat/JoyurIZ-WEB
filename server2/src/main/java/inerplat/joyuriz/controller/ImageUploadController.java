@@ -43,7 +43,7 @@ public class ImageUploadController {
         String newFileName = fileStorageService.save(file);
 
 
-        client.setUri("http://localhost:5000");
+        client.setUri("http://127.0.0.1:5000");
         Response result = client.requestDetect("/predict", file, Response.class).block();
         result.setHash(hash);
 
