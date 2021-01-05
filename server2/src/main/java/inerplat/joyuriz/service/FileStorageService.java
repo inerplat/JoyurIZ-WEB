@@ -9,15 +9,15 @@ import java.security.NoSuchAlgorithmException;
 import java.util.stream.Stream;
 
 public interface FileStorageService {
-    public void init();
+    void init();
 
-    public String save(MultipartFile file);
+    String save(MultipartFile file);
 
-    public Resource load(String filename);
+    Resource load(String filename);
 
-    public void deleteAll();
+    void deleteAll();
 
-    public Stream<Path> loadAll();
+    Stream<Path> loadAll();
 
-    public String getHash(MultipartFile file) throws NoSuchAlgorithmException, IOException;
+    String getHash(MultipartFile file) throws NoSuchAlgorithmException, IOException;
 }
