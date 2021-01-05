@@ -11,6 +11,7 @@ RUN ./gradlew clean build
 FROM openjdk:11-jre-slim
 
 ARG JAR_FILE=build/libs/*.jar
+RUN chmod +rx ${JAR_FILE}
 COPY ${JAR_FILE} app.jar
 RUN chmod +x app.jar
 ENTRYPOINT ["java","-jar","app.jar"]
