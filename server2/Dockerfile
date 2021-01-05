@@ -1,9 +1,9 @@
-FROM openjdk:11-jdk AS build
+FROM openjdk:11-jdk-slim
 
 WORKDIR /workspace/app
 
 COPY . /workspace/app
-RUN --mount=type=cache,target=/root/.gradle ./gradlew clean build
+RUN ./gradlew clean build
 
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
