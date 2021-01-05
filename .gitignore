@@ -12,3 +12,4 @@ server2/.idea
 server2/uploads
 *.properties
 server2/src/main/resources/application.properties
+server2/src/main/resources/application.yaml
