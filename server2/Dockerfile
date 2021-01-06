@@ -1,11 +1,14 @@
-FROM openjdk:11-jdk-slim
+FROM openjdk:11-jdk-slim AS build
 
 WORKDIR /workspace/app
 
-COPY . /workspace/app
+COPY . .
+
+RUN chmod +x gradlew
+
 RUN ./gradlew clean build
 
-ARG JAR_FILE=build/libs/*.jar
-COPY ${JAR_FILE} app.jar
+RUN cp build/libs/*.jar app.jar
 
+RUN chmod +x app.jar
 ENTRYPOINT ["java","-jar","app.jar"]
