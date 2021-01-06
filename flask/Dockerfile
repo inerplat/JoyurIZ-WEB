@@ -1,4 +1,4 @@
-FROM joyuriz-flask
+FROM inerplat/joyuriz-flask
 
 WORKDIR "/app"
 
