@@ -16,7 +16,7 @@ from flask import request
 # import tracemalloc
 # tracemalloc.start(10)
 app = flask.Flask(__name__)
-model = load_model('./model5.h5')
+model = load_model('model5.h5')
 predictList = ['Chaewon', 'Yena', 'Yuri']
 
 def prepare_image(image, target):
@@ -56,7 +56,13 @@ def formdata_predict():
 
 def predict(postImage):
     # time1 = tracemalloc.take_snapshot()
-    data = {"success": False}
+    data = {
+        "predict": "fail",
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+    }
     if postImage is None:
         return data
     extention = magic.from_buffer(postImage).split()[0].upper()
@@ -74,13 +80,14 @@ def predict(postImage):
         imageObject.close()
     image, T, R, B, L = prepare_image(image, target=(256, 256))
     if image is False:
+        print(data)
         return flask.jsonify(data)
 
     preds = numpy.argmax(model(image).numpy())
     clear_session()
     image = None
     postImage = None
-    data["predictions"] = predictList[preds]   
+    data["predict"] = predictList[preds]   
     data['top'] = T
     data['right'] = R
     data['bottom'] = B

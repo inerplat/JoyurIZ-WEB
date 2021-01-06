@@ -7,9 +7,10 @@ import inerplat.joyuriz.service.PsqlService;
 import inerplat.joyuriz.service.WebClientModel;
 import inerplat.joyuriz.util.ImageUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,13 +19,17 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class ImageUploadController {
 
     private final FileStorageService fileStorageService;
     private final PsqlService psql;
+
+    @Value("${api.ip}") private String apiIp;
+    @Value("${api.port}") private String apiPort;
+    @Value("${api.method}") private String apiMethod;
 
     @PostMapping("/upload/image")
     public ResponseEntity<Response> processImage(@RequestParam("image") MultipartFile file) throws IOException, NoSuchAlgorithmException {
@@ -33,7 +38,7 @@ public class ImageUploadController {
         WebClientModel client = new WebClientModel();
 
         String hash = fileStorageService.getHash(file);
-        Image img = psql.findByHash(hash);
+        Image img = psql.findTop1ByHash(hash);
         if(img != null){
             img.setRequest(img.getRequest()+1);
             psql.saveAndFlush(img);
@@ -42,8 +47,7 @@ public class ImageUploadController {
 
         String newFileName = fileStorageService.save(file);
 
-
-        client.setUri("http://127.0.0.1:5000");
+        client.setUri(String.format("%s://%s:%s", apiMethod, apiIp, apiPort));
         Response result = (Response) client.requestDetect("/predict", file, Response.class).block();
         result.setHash(hash);
 

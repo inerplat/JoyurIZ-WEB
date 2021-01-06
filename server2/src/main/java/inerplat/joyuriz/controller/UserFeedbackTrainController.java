@@ -27,7 +27,7 @@ public class UserFeedbackTrainController {
         String feedback = payload.get("feedback");
         String hash = payload.get("hash");
 
-        Image img = psql.findByHash(hash);
+        Image img = psql.findTop1ByHash(hash);
         if(img == null)
             return ResponseEntity.badRequest().body("Bad request");
 
