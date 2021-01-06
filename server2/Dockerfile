@@ -8,6 +8,7 @@ RUN chmod +x gradlew
 
 RUN ./gradlew clean build
 
+WORKDIR /workspace/app
 
 COPY build/libs/*.jar app.jar
 
