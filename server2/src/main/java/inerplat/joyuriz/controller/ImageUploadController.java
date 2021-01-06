@@ -44,7 +44,7 @@ public class ImageUploadController {
 
 
         client.setUri("http://127.0.0.1:5000");
-        Response result = client.requestDetect("/predict", file, Response.class).block();
+        Response result = (Response) client.requestDetect("/predict", file, Response.class).block();
         result.setHash(hash);
 
         psql.saveAndFlush(new Image(

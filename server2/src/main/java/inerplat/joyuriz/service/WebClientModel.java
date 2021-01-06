@@ -20,7 +20,7 @@ public class WebClientModel {
                 .baseUrl(baseUri)
                 .build();
     }
-    public Mono<Response> requestDetect(String uri, MultipartFile file, Class<Response> clazz) {
+    public Mono<?> requestDetect(String uri, MultipartFile file, Class<?> clazz) {
         MultipartBodyBuilder builder = new MultipartBodyBuilder();
         builder.part("image", file.getResource());
         MultiValueMap<String, HttpEntity<?>> body = builder.build();

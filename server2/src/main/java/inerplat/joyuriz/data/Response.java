@@ -17,7 +17,7 @@ public class Response{
 
     @JsonCreator
     public Response(
-            @JsonProperty("predictions")    String predict,
+            @JsonProperty("predict")        String predict,
             @JsonProperty("top")            Integer top,
             @JsonProperty("bottom")         Integer bottom,
             @JsonProperty("left")           Integer left,
