@@ -1,0 +1,47 @@
+spring:
+  profiles:
+    active: local
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+
+  servlet:
+    multipart:
+      maxFileSize: 10MB
+      maxRequestSize: 10MB
+
+api:
+  ip: ${API_IP}
+  port: ${API_PORT}
+  method: ${API_METHOD}
+
+web:
+  ip: ${WEB_IP}
+  port: ${WEB_PORT}
+  method: ${WEB_METHOD}
+
+---
+
+spring:
+  profiles: local
+
+logging:
+  level:
+    root: info
+
+server:
+  port: 8080
+
+---
+spring:
+  profiles: prod
+
+server:
+  port: 443
+
+logging:
+  level:
+    root: info
+

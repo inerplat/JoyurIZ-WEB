@@ -124,7 +124,7 @@ class App extends Component {
         canvas.width  = img.width;
         canvas.height = img.height;
         
-        if(response.status === 200){
+        if(response.status === 200 && response.data.predict != "fail"){
           ReactGA.event({category: 'onDrop', action: 'success'});
           ctx.lineWidth = "5";
           ctx.strokeStyle = "lightgreen";
