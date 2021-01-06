@@ -8,9 +8,8 @@ RUN chmod +x gradlew
 
 RUN ./gradlew clean build
 
-ARG JAR_FILE=builds/libs/*.jar
 
-COPY ${JAR_FILE} app.jar
+COPY build/libs/*.jar app.jar
 
 RUN chmod +x app.jar
 ENTRYPOINT ["java","-jar","app.jar"]
