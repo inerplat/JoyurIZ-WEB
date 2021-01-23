@@ -19,7 +19,7 @@ import java.util.Map;
 public class UserFeedbackTrainController {
     private final PsqlService psql;
 
-    @PostMapping("/feedback")
+    @PostMapping("/api/v1/feedback")
     public ResponseEntity<String> feedback(@RequestBody Map<String, String> payload) {
         log.info(payload.get("feedback"));
         log.info(payload.get("hash"));

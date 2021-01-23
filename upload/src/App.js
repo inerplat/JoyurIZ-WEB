@@ -108,7 +108,9 @@ class App extends Component {
         ReactGA.event({category: 'onDrop', action: 'requestServer'});
         try{
 //          return await axios.post("https://joyuriz.shop/imageUpload", formData)
-          return await axios.post("http://127.0.0.1:8080/upload/image", formData)
+          return await axios.post("http://127.0.0.1:8080/api/v1/upload/image", formData)
+          //return await axios.post("http://193.123.250.156:8080/api/v1/upload/image", formData)
+
           //return await axios.post("http://localhost/imageUpload", formData)
         } catch(error){
           console.log(error)

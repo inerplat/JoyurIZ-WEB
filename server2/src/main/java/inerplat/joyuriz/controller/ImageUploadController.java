@@ -31,7 +31,7 @@ public class ImageUploadController {
     @Value("${api.port}") private String apiPort;
     @Value("${api.method}") private String apiMethod;
 
-    @PostMapping("/upload/image")
+    @PostMapping("/api/v1/upload/image")
     public ResponseEntity<Response> processImage(@RequestParam("image") MultipartFile file) throws IOException, NoSuchAlgorithmException {
         Assert.isTrue(ImageUtil.isImage(file), "Uploaded File is Not Image");
 
@@ -48,7 +48,7 @@ public class ImageUploadController {
         String newFileName = fileStorageService.save(file);
 
         client.setUri(String.format("%s://%s:%s", apiMethod, apiIp, apiPort));
-        Response result = (Response) client.requestDetect("/predict", file, Response.class).block();
+        Response result = (Response) client.requestDetect("/api/v1/predict", file, Response.class).block();
         result.setHash(hash);
 
         psql.saveAndFlush(new Image(
