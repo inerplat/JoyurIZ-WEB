@@ -1,13 +1,13 @@
 from flask import request
 from flask_restx import Namespace, Resource
 from joyuriz.service.image import ImageManager
+from joyuriz.service.model import ModelManager
 from joyuriz.service.cnn import CNN
-from joyuriz.service.torchPredict import torch_predict
-
 predict_ns = Namespace('Predict', path='/api/v1', description='predict')
 
 swagger_parser = predict_ns.parser()
 
+model = ModelManager(CNN, 'models/predict.pt')
 
 @predict_ns.route('/predict')
 class Predict(Resource):
@@ -29,7 +29,7 @@ class Predict(Resource):
 
         tensor_image = manager.find_face().crop_image().to_tensor().get_image()
 
-        predicted = torch_predict(model=CNN(), path='models/predict.pt', input=tensor_image)
+        predicted = model.predict(tensor_image)
 
         face_box = manager.get_face()
         response = {

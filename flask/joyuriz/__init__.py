@@ -1,7 +1,8 @@
-from flask import Flask, request
+from flask import Flask
 from flask_restx import Api
 from joyuriz.router.api.v1.predict import predict_ns
 from joyuriz.error.handler import FaceError
+
 app = Flask(__name__)
 
 api = Api(app, version='1.0', title='Joyuriz API', description='Joyuriz API')
