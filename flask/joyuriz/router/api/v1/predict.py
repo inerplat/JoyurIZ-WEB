@@ -29,7 +29,7 @@ class Predict(Resource):
 
         tensor_image = manager.find_face().crop_image().to_tensor().get_image()
 
-        predicted = torch_predict(model=CNN(), path='predict_v1.pt', input=tensor_image)
+        predicted = torch_predict(model=CNN(), path='models/predict.pt', input=tensor_image)
 
         face_box = manager.get_face()
         response = {
