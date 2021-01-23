@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir flask
 RUN pip install --no-cache-dir flask-restx
 RUN pip install --no-cache-dir pillow face_recognition
 
-FROM installer AS run
+FROM installer
 
 WORKDIR "/app"
 
