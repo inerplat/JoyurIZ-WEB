@@ -1,6 +1,6 @@
 FROM openjdk:11-jdk-slim AS builder
 
-WORKDIR /workspace/app
+WORKDIR /build
 
 COPY . .
 
@@ -11,6 +11,8 @@ RUN cp build/libs/*.jar app.jar
 
 FROM openjdk:11-jre-slim
 
-COPY --from=0 /workspace/app/app.jar .
+WORKDIR /run
+
+COPY --from=0 /build/app.jar .
 RUN chmod +x app.jar
 ENTRYPOINT ["java","-jar","app.jar"]
