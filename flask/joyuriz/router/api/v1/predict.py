@@ -9,6 +9,7 @@ swagger_parser = predict_ns.parser()
 
 model = ModelManager(CNN, 'models/predict.pt')
 
+
 @predict_ns.route('/predict')
 class Predict(Resource):
     """ POST로 받은 이미지를 분류하는 API """

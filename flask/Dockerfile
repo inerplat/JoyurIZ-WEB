@@ -12,6 +12,7 @@ RUN pip install --no-cache-dir numpy
 RUN pip install --no-cache-dir flask
 RUN pip install --no-cache-dir flask-restx
 RUN pip install --no-cache-dir pillow face_recognition
+RUN pip install --no-cache-dir gunicorn
 
 FROM installer
 
@@ -20,4 +21,5 @@ WORKDIR "/app"
 COPY ./joyuriz ./joyuriz
 COPY ./app.py ./
 
-CMD ["python", "app.py"]
+CMD ["/bin/bash", "-c", "gunicorn -b 0.0.0.0:5000 -w 4 app" ]
+#CMD ["python", "app.py"]

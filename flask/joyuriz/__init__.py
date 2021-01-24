@@ -2,10 +2,11 @@ from flask import Flask
 from flask_restx import Api
 from joyuriz.router.api.v1.predict import predict_ns
 from joyuriz.error.handler import FaceError
+from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
 
-api = Api(app, version='1.0', title='Joyuriz API', description='Joyuriz API')
+api = Api(app, version='1.0', title='Joyuriz API', description='Joyuriz API', doc=False)
 
 api.add_namespace(predict_ns)
 
@@ -26,6 +27,9 @@ def handle_error(message):
 
     elif isinstance(message, FaceError):
         return response, 204
+
+    elif isinstance(message, HTTPException):
+        return message
 
     else:
         return 'Internal server error', 500
