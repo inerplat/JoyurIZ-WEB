@@ -1,0 +1,43 @@
+### 1
+POST http://localhost:5000/api/v1/predict
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="test.jpeg"
+Content-Type: image/png
+
+< ./static/chaewon1.jpeg
+--WebAppBoundary--
+
+### 2
+POST http://localhost:5000/api/v1/predict
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="test.jpeg"
+Content-Type: image/png
+
+< ./static/chaewon2.jpeg
+--WebAppBoundary--
+
+### 3
+POST http://localhost:5000/api/v1/predict
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="test.jpeg"
+Content-Type: image/png
+
+< ./static/chaewon3.jpeg
+--WebAppBoundary--
+
+### 4
+POST http://localhost:5000/api/v1/predict
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="test.jpeg"
+Content-Type: image/png
+
+< ./static/chaewon4.jpeg
+--WebAppBoundary--
