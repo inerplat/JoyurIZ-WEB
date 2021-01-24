@@ -8,8 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 
-@Entity
-@Table(name="feedback")
+@Entity(name="feedback")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Image {

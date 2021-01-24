@@ -19,12 +19,13 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
-@Slf4j
 public class ImageUploadController {
 
     private final FileStorageService fileStorageService;
+
     private final PsqlService psql;
 
     @Value("${api.ip}") private String apiIp;
@@ -42,6 +43,7 @@ public class ImageUploadController {
         if(img != null){
             img.setRequest(img.getRequest()+1);
             psql.saveAndFlush(img);
+            log.info(String.format("[DB]\t%s: %s", img.getHash(), img.getPredict()));
             return ResponseEntity.ok(new Response(img, hash));
         }
 
@@ -57,6 +59,7 @@ public class ImageUploadController {
                 "localhost:image/" + newFileName
         ));
 
+        log.info(String.format("[API]\t%s: %s", result.getHash(), result.getPredict()));
         return ResponseEntity.ok(result);
     }
 

@@ -24,24 +24,24 @@ web:
 
 ---
 
-spring:
-  profiles: local
-
 logging:
   level:
     root: info
 
 server:
   port: 8080
-
----
 spring:
-  profiles: prod
-
+  config:
+    activate:
+      on-profile: local
+---
 server:
   port: 443
 
 logging:
   level:
     root: info
-
+spring:
+  config:
+    activate:
+      on-profile: prod
