@@ -23,7 +23,7 @@ class ImageManager:
     def find_face(self):
         faces = face_recognition.face_locations(self.image, number_of_times_to_upsample=0, model="hog")
         if len(faces) != 1:
-            raise FaceError
+            raise FaceError("Fail to find a face")
         self.top, self.right, self.bottom, self.left = faces[0]
         return self
 
