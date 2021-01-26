@@ -5,7 +5,6 @@ import inerplat.joyuriz.service.PsqlService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,11 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-
-@Slf4j
-@Transactional
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class UserFeedbackTrainController {
     private final PsqlService psql;
 

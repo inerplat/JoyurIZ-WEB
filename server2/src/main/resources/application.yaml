@@ -22,33 +22,25 @@ web:
   port: ${WEB_PORT}
   method: ${WEB_METHOD}
 
-
 ---
-server:
-  port: 8080
 
 logging:
   level:
     root: info
+
+server:
+  port: 8080
 spring:
   config:
     activate:
       on-profile: local
 ---
+server:
+  port: 443
 
 logging:
   level:
     root: info
-
-server:
-  port: 443
-  ssl:
-    enabled: true
-    key-store: cert/keystore.p12
-    key-store-password: 20181029
-    key-store-type: PKCS12
-    key-alias: bns-ssl
-
 spring:
   config:
     activate:
