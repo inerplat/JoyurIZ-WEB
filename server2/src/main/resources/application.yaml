@@ -35,8 +35,6 @@ spring:
     activate:
       on-profile: local
 ---
-server:
-  port: 443
 
 logging:
   level:
