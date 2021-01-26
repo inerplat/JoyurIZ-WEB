@@ -1,3 +1,6 @@
+src/test/*
+*.jks
+*.p12
 HELP.md
 .gradle
 build/
