@@ -40,6 +40,7 @@ public class ImageUploadController {
 
         String hash = fileStorageService.getHash(file);
         Image img = psql.findTop1ByHash(hash);
+
         if(img != null){
             img.setRequest(img.getRequest()+1);
             psql.saveAndFlush(img);
@@ -50,9 +51,20 @@ public class ImageUploadController {
         String newFileName = fileStorageService.save(file);
 
         client.setUri(String.format("%s://%s:%s", apiMethod, apiIp, apiPort));
-        Response result = (Response) client.requestDetect("/api/v1/predict", file, Response.class).block();
-        result.setHash(hash);
+        Response result;
 
+        try {
+            result = (Response) client.requestDetect("/api/v1/predict", file, Response.class).block();
+        } catch(RuntimeException err){
+            log.error("[API]\tFace detect Error: " + err.getMessage());
+            return ResponseEntity.notFound().build();
+        } catch(Exception err){
+            log.error("[API] Internal Server Error:" + err.getMessage());
+            return ResponseEntity.unprocessableEntity().build();
+        }
+
+        assert result != null;
+        result.setHash(hash);
         psql.saveAndFlush(new Image(
                 result,
                 0, 0, 0, 1,

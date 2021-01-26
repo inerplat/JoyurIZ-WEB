@@ -38,4 +38,10 @@ public class Response{
         this.right = img.getRight();
         this.hash = hash;
     }
+
+    public Response(){
+        this.predict = "fail";
+        this.top = this.bottom = this.left = this.right = 0;
+        this.hash = null;
+    }
 }
