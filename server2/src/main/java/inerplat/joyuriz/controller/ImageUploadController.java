@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ import java.security.NoSuchAlgorithmException;
 
 @Slf4j
 @RestController
+@Transactional
 @RequiredArgsConstructor
 public class ImageUploadController {
 
@@ -40,6 +42,7 @@ public class ImageUploadController {
 
         String hash = fileStorageService.getHash(file);
         Image img = psql.findTop1ByHash(hash);
+
         if(img != null){
             img.setRequest(img.getRequest()+1);
             psql.saveAndFlush(img);
@@ -50,9 +53,20 @@ public class ImageUploadController {
         String newFileName = fileStorageService.save(file);
 
         client.setUri(String.format("%s://%s:%s", apiMethod, apiIp, apiPort));
-        Response result = (Response) client.requestDetect("/api/v1/predict", file, Response.class).block();
-        result.setHash(hash);
+        Response result;
 
+        try {
+            result = (Response) client.requestDetect("/api/v1/predict", file, Response.class).block();
+        } catch(RuntimeException err){
+            log.error("[API]\tFace detect Error: " + err.getMessage());
+            return ResponseEntity.notFound().build();
+        } catch(Exception err){
+            log.error("[API] Internal Server Error:" + err.getMessage());
+            return ResponseEntity.unprocessableEntity().build();
+        }
+
+        assert result != null;
+        result.setHash(hash);
         psql.saveAndFlush(new Image(
                 result,
                 0, 0, 0, 1,
