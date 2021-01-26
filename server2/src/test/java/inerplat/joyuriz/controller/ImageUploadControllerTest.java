@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @Slf4j
-//@SpringBootTest
 @Ignore
+@SpringBootTest
 class ImageUploadControllerTest {
 
     @Autowired
@@ -20,6 +20,7 @@ class ImageUploadControllerTest {
     @Value("${DB_USER}")
     private String user;
 
+    @Ignore
     @Test
     public void test(){
         log.info(user);
