@@ -35,7 +35,8 @@ public class ImageUploadController {
     @Value("${api.method}") private String apiMethod;
 
     @PostMapping("/api/v1/upload/image")
-    public ResponseEntity<Response> processImage(@RequestParam("image") MultipartFile file) throws IOException, NoSuchAlgorithmException {
+    public ResponseEntity<Response> processImage(@RequestParam("image") MultipartFile file)
+            throws IOException, NoSuchAlgorithmException {
         Assert.isTrue(ImageUtil.isImage(file), "Uploaded File is Not Image");
 
         WebClientModel client = new WebClientModel();
