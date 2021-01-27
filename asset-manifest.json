@@ -1,22 +1,20 @@
 {
   "files": {
-    "main.css": "/JoyurIZ-WEB/static/css/main.1d69528b.chunk.css",
-    "main.js": "/JoyurIZ-WEB/static/js/main.43847cc6.chunk.js",
-    "main.js.map": "/JoyurIZ-WEB/static/js/main.43847cc6.chunk.js.map",
-    "runtime-main.js": "/JoyurIZ-WEB/static/js/runtime-main.7bdd4ff6.js",
-    "runtime-main.js.map": "/JoyurIZ-WEB/static/js/runtime-main.7bdd4ff6.js.map",
-    "static/js/2.8b0dd1a2.chunk.js": "/JoyurIZ-WEB/static/js/2.8b0dd1a2.chunk.js",
-    "static/js/2.8b0dd1a2.chunk.js.map": "/JoyurIZ-WEB/static/js/2.8b0dd1a2.chunk.js.map",
+    "main.css": "/JoyurIZ-WEB/static/css/main.27dfbba1.chunk.css",
+    "main.js": "/JoyurIZ-WEB/static/js/main.2aec255e.chunk.js",
+    "main.js.map": "/JoyurIZ-WEB/static/js/main.2aec255e.chunk.js.map",
+    "runtime-main.js": "/JoyurIZ-WEB/static/js/runtime-main.11fd90f2.js",
+    "runtime-main.js.map": "/JoyurIZ-WEB/static/js/runtime-main.11fd90f2.js.map",
+    "static/js/2.4d2fae01.chunk.js": "/JoyurIZ-WEB/static/js/2.4d2fae01.chunk.js",
+    "static/js/2.4d2fae01.chunk.js.map": "/JoyurIZ-WEB/static/js/2.4d2fae01.chunk.js.map",
     "index.html": "/JoyurIZ-WEB/index.html",
-    "precache-manifest.4874fda8ba9e102c619b93a07f53d3a7.js": "/JoyurIZ-WEB/precache-manifest.4874fda8ba9e102c619b93a07f53d3a7.js",
-    "service-worker.js": "/JoyurIZ-WEB/service-worker.js",
-    "static/css/main.1d69528b.chunk.css.map": "/JoyurIZ-WEB/static/css/main.1d69528b.chunk.css.map",
-    "static/js/2.8b0dd1a2.chunk.js.LICENSE.txt": "/JoyurIZ-WEB/static/js/2.8b0dd1a2.chunk.js.LICENSE.txt"
+    "static/css/main.27dfbba1.chunk.css.map": "/JoyurIZ-WEB/static/css/main.27dfbba1.chunk.css.map",
+    "static/js/2.4d2fae01.chunk.js.LICENSE.txt": "/JoyurIZ-WEB/static/js/2.4d2fae01.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.7bdd4ff6.js",
-    "static/js/2.8b0dd1a2.chunk.js",
-    "static/css/main.1d69528b.chunk.css",
-    "static/js/main.43847cc6.chunk.js"
+    "static/js/runtime-main.11fd90f2.js",
+    "static/js/2.4d2fae01.chunk.js",
+    "static/css/main.27dfbba1.chunk.css",
+    "static/js/main.2aec255e.chunk.js"
   ]
 }
