@@ -8,21 +8,21 @@ const schema = require('./mongoImage.js')
 const https = require('https');
 const axiosRequest = require('./module/axiosRequest.js')
 const multerOption = require('./module/multerOption.js')
-const options = {
-  cert: fs.readFileSync('keys/certificate.crt'),
-  key: fs.readFileSync('keys/private.key'),
-  ca : fs.readFileSync('keys/ca.crt')
-};
+// const options = {
+//   cert: fs.readFileSync('keys/certificate.crt'),
+//   key: fs.readFileSync('keys/private.key'),
+//   ca : fs.readFileSync('keys/ca.crt')
+// };
 
-var port = 443
-https.createServer(options, app).listen(port,()=>{
-  console.log("listening on port 443")
-});
+// var port = 443
+// https.createServer(options, app).listen(port,()=>{
+//   console.log("listening on port 443")
+// });
 
-// var port = 80
-// app.listen(port, () => {
-//    console.log(`Example app listening on port ${port}!`)
-// })
+var port = 80
+app.listen(port, () => {
+   console.log(`Example app listening on port ${port}!`)
+})
 
 app.use(express.json());
 app.use(function(req, res, next) {
@@ -31,10 +31,10 @@ app.use(function(req, res, next) {
     next();
 });
 
-mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DB_URL+'predict', { useNewUrlParser: true,  useUnifiedTopology: true })
-  .then(() => console.log('Successfully connected to mongodb'))
-  .catch(e => console.error(e));
+// mongoose.Promise = global.Promise;
+// mongoose.connect(process.env.DB_URL+'predict', { useNewUrlParser: true,  useUnifiedTopology: true })
+//   .then(() => console.log('Successfully connected to mongodb'))
+//   .catch(e => console.error(e));
 
 
 const Image = mongoose.model('Image', schema.imageSchema);
@@ -62,34 +62,29 @@ app.post('/imageUpload' , multerOption.single('image'), async (requset, response
   fileName = requset.file['filename']
   console.log(fileName)
   hash = md5File.sync('userUpload/'+fileName)
-  var mongooseResult = await Image.find({hash:hash},(err,res)=>{return res})
-  console.log("mongooseResult : ", mongooseResult)
-  if(mongooseResult.length===0){
+  //var mongooseResult = await Image.find({hash:hash},(err,res)=>{return res})
+  
+  //console.log("mongooseResult : ", mongooseResult)
+
+  if(true || mongooseResult.length===0){
     try{
       var axiosResponse = await axiosRequest('userUpload/'+fileName)
       console.log("[axiosResponse] : ", axiosResponse)
-      if(axiosResponse['success'] == true){
+      if(axiosResponse.status == 200){
+          responseData = axiosResponse.data
           var imageInfo = {
-            success:      true,
             hash:         hash,
-            predictions:  axiosResponse["predictions"],
-            top:          axiosResponse["top"],
-            bottom:       axiosResponse["bottom"],
-            left:         axiosResponse["left"],
-            right:        axiosResponse["right"],
-            path:         fileName,
-            voteChaewon:  0,
-            voteYuri:     0,
-            voteYena:     0,
-            request:      1,
+            predictions:  responseData["predictions"],
+            top:          responseData["top"],
+            bottom:       responseData["bottom"],
+            left:         responseData["left"],
+            right:        responseData["right"]
           }
           Image.create(imageInfo)
           response.json(imageInfo)
       }
       else{
         response.json({
-          success:       false,
-          path:          fileName,
           hash:          hash     
         })
       }

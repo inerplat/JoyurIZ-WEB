@@ -6,3 +6,9 @@ node_modules
 DB
 server/userUpload/
 server/keys/
+*.DS_Store
+server2/.idea
+.idea/*
+server2/uploads
+*.properties
+server2/src/main/resources/application.properties

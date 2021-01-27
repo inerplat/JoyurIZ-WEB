@@ -1,0 +1,26 @@
+###
+POST http://localhost:8080/api/v1/upload/image
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="image.jpg"
+Content-Type: image/jpg
+
+< ./images/chaewon1.jpg
+--WebAppBoundary--
+
+###
+
+###
+POST https://joyuriz.193-122-104-99.nip.io:1029/api/v1/upload/image
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="image.png"
+Content-Type: image/png
+
+< ./images/chaewon1.png
+--WebAppBoundary--
+
+###
+

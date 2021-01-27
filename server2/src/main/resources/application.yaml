@@ -1,0 +1,60 @@
+spring:
+  profiles:
+    active: local
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+
+  servlet:
+    multipart:
+      maxFileSize: 10MB
+      maxRequestSize: 10MB
+
+api:
+  ip: ${API_IP}
+  port: ${API_PORT}
+  method: ${API_METHOD}
+
+web:
+  ip: ${WEB_IP}
+  port: ${WEB_PORT}
+  method: ${WEB_METHOD}
+
+---
+
+logging:
+  level:
+    root: info
+
+server:
+  port: 8080
+spring:
+  config:
+    activate:
+      on-profile: local
+---
+
+logging:
+  level:
+    root: info
+
+server:
+  port: 443
+  ssl:
+    enabled: true
+    key-store: cert/joyuriz.jks
+    key-store-password: ${KEY_STORE_PASSWORD}
+    key-store-type: PKCS12
+  http2:
+    enabled: false
+  tomcat:
+    max-http-form-post-size: 10MB
+    max-swallow-size: 10MB
+  max-http-header-size: 40KB
+
+spring:
+  config:
+    activate:
+      on-profile: prod
