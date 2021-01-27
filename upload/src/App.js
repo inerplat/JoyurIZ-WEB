@@ -95,8 +95,7 @@ class App extends Component {
     reader.readAsDataURL(pictureFiles[0]);
     var canvas = document.getElementById("imageCanvas");
 
-    var ctx = canvas.getContext("2d"); 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     if(pictureFiles.length > 0){
       const formData = new FormData();
       formData.append( 
@@ -107,15 +106,13 @@ class App extends Component {
       var imagePost = async () =>{
         ReactGA.event({category: 'onDrop', action: 'requestServer'});
         try{
-//          return await axios.post("https://joyuriz.shop/imageUpload", formData)
-          return await axios.post("http://127.0.0.1:8080/api/v1/upload/image", formData)
-          //return await axios.post("http://193.123.250.156:8080/api/v1/upload/image", formData)
-
-          //return await axios.post("http://localhost/imageUpload", formData)
+          return await axios.post("https://joyuriz.193-122-104-99.nip.io:1029/api/v1/upload/image", formData)
         } catch(error){
           console.log(error)
         }
       }
+      var ctx = canvas.getContext("2d"); 
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       var response = await imagePost()
       if(!response){
         ReactGA.event({category: 'onDrop', action: 'noResponse'});
