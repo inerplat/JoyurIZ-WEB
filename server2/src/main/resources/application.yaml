@@ -48,7 +48,7 @@ server:
     key-store-password: ${KEY_STORE_PASSWORD}
     key-store-type: PKCS12
   http2:
-    enabled: true
+    enabled: false
   tomcat:
     max-http-form-post-size: 10MB
     max-swallow-size: 10MB
