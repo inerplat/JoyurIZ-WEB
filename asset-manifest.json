@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/JoyurIZ-WEB/static/css/main.27dfbba1.chunk.css",
-    "main.js": "/JoyurIZ-WEB/static/js/main.2aec255e.chunk.js",
-    "main.js.map": "/JoyurIZ-WEB/static/js/main.2aec255e.chunk.js.map",
+    "main.js": "/JoyurIZ-WEB/static/js/main.c1ce88e1.chunk.js",
+    "main.js.map": "/JoyurIZ-WEB/static/js/main.c1ce88e1.chunk.js.map",
     "runtime-main.js": "/JoyurIZ-WEB/static/js/runtime-main.11fd90f2.js",
     "runtime-main.js.map": "/JoyurIZ-WEB/static/js/runtime-main.11fd90f2.js.map",
     "static/js/2.4d2fae01.chunk.js": "/JoyurIZ-WEB/static/js/2.4d2fae01.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.11fd90f2.js",
     "static/js/2.4d2fae01.chunk.js",
     "static/css/main.27dfbba1.chunk.css",
-    "static/js/main.2aec255e.chunk.js"
+    "static/js/main.c1ce88e1.chunk.js"
   ]
 }
