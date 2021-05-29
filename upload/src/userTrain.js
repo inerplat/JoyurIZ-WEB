@@ -37,7 +37,7 @@ export default function AnimatedModal(props) {
 
         try{
 //                return await axios.post("https://joyuriz.shop/userTrain", {
-            return await axios.post("http://localhost:8080/api/v1/feedback", {
+            return await axios.post("https://193.122.104.99.sslip.io:1029/feedback", {
             //return await axios.post("http://193.123.250.156:8080/api/v1/feedback", {
 
                 'feedback':      who,
