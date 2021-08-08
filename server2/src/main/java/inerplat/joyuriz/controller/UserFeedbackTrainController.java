@@ -18,6 +18,7 @@ import java.util.Map;
 @Transactional
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class UserFeedbackTrainController {
     private final PsqlService psql;
 

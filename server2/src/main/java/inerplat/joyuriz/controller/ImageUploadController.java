@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,7 @@ import java.security.NoSuchAlgorithmException;
 @RestController
 @Transactional
 @RequiredArgsConstructor
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class ImageUploadController {
 
     private final FileStorageService fileStorageService;
