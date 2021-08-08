@@ -106,7 +106,7 @@ class App extends Component {
       var imagePost = async () =>{
         ReactGA.event({category: 'onDrop', action: 'requestServer'});
         try{
-          return await axios.post("https://193.122.104.99.sslip.io:1029/api/v1/upload/image", formData)
+          return await axios.post("https://193.122.106.23.nip.io/api/v1/upload/image", formData)
         } catch(error){
           console.log(error)
         }
