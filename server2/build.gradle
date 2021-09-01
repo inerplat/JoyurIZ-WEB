@@ -20,7 +20,6 @@ dependencies {
 	implementation 'org.projectlombok:lombok:1.18.20'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.5.4'
 	implementation 'ch.qos.logback:logback-classic:1.2.5'
-	implementation 'ch.qos.logback:logstash-logback-encoder'
 	implementation 'net.logstash.logback:logstash-logback-encoder:6.6'
 	compile 'org.springframework.boot:spring-boot-starter-webflux:2.5.4'
 	compile 'org.projectreactor:reactor-spring:1.0.1.RELEASE'
