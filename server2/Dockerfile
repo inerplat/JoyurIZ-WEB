@@ -9,7 +9,7 @@ RUN chmod +x gradlew
 RUN ./gradlew clean build
 RUN cp build/libs/*.jar app.jar
 
-FROM openjdk:16-jre-slim
+FROM openjdk:16-slim
 
 WORKDIR /run
 

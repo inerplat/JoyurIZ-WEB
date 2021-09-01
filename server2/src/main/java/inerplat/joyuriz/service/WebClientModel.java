@@ -1,6 +1,5 @@
 package inerplat.joyuriz.service;
 
-import inerplat.joyuriz.data.Response;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

@@ -1,15 +1,9 @@
 package inerplat.joyuriz.log;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import inerplat.joyuriz.data.Response;
-import inerplat.joyuriz.log.RequestLogFormat;
 import lombok.extern.slf4j.Slf4j;
 import net.logstash.logback.composite.AbstractPatternJsonProvider;
-import net.logstash.logback.composite.JsonProvider;
-import net.logstash.logback.composite.loggingevent.LoggingEventPatternJsonProvider;
 import net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder;
-import net.logstash.logback.marker.LogstashMarker;
 import net.logstash.logback.marker.Markers;
 import org.slf4j.MDC;
 import org.slf4j.Marker;
@@ -64,8 +58,6 @@ public class RequestFilter implements Filter {
                 (end - start) / 1000.0,
                 getRequestBody(requestWrapper)
         );
-        ObjectMapper objectMapper = new ObjectMapper();
-        log.info("[DEBUG]" + getResponseBody(responseWrapper));
         Marker logMarker = Markers.append("rq", rq)
                 .and(Markers.append("hd", getHeaders((HttpServletRequest) request)))
                 .and(Markers.append("rs", getResponseBody(responseWrapper)));
