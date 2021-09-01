@@ -11,7 +11,7 @@ spring:
   redis:
     host: ${REDIS_IP}
     port: ${REDIS_PORT}
-    password: $(REDIS_PASSWORD)
+    password: ${REDIS_PASSWORD}
 api:
   ip: ${API_IP}
   port: ${API_PORT}
