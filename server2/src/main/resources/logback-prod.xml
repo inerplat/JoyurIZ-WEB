@@ -1,0 +1,59 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <encoding>UTF-8</encoding>
+            <providers>
+                <pattern>
+                    <pattern>
+                        { "s": "joyuriz_gateway", "lt": "gateway", "h": "${HOSTNAME}" }
+                    </pattern>
+                </pattern>
+                <timestamp>
+                    <fieldName>time</fieldName>
+                </timestamp>
+                <logLevel>
+                    <fieldName>ll</fieldName>
+                </logLevel>
+                <message>
+                    <fieldName>msg</fieldName>
+                </message>
+                <mdc>
+                    <fieldName>uuid</fieldName>
+                </mdc>
+                <stackTrace>
+                    <fieldName>java_err_stack</fieldName>
+                    <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                        <maxDepthPerThrowable>5</maxDepthPerThrowable>
+                        <maxLength>2048</maxLength>
+                        <shortenedClassNameLength>35</shortenedClassNameLength>
+                        <exclude>sun\.reflect\.</exclude>
+                        <exclude>java\.lang\.reflect</exclude>
+                        <exclude>java\.lang\.Thread\.run</exclude>
+                        <rootCauseFirst>false</rootCauseFirst>
+                    </throwableConverter>
+                </stackTrace>
+                <logstashMarkers/>
+            </providers>
+        </encoder>
+
+    </appender>
+
+    <logger name="inerplat.joyuriz" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="org.springframework.cloud.gateway" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+
+    <root>
+        <level value="ERROR"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+
+</configuration>

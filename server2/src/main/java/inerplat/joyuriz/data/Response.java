@@ -39,9 +39,9 @@ public class Response{
         this.hash = hash;
     }
 
-    public Response(){
+    public Response(int error){
         this.predict = "fail";
-        this.top = this.bottom = this.left = this.right = 0;
+        this.top = this.bottom = this.left = this.right = error;
         this.hash = null;
     }
 }

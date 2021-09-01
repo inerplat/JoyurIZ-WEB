@@ -1,7 +1,4 @@
 spring:
-  profiles:
-    active: local
-
   datasource:
     url: ${DB_URL}
     username: ${DB_USER}
@@ -11,7 +8,10 @@ spring:
     multipart:
       maxFileSize: 10MB
       maxRequestSize: 10MB
-
+  redis:
+    host: ${REDIS_IP}
+    port: ${REDIS_PORT}
+    password: $(REDIS_PASSWORD)
 api:
   ip: ${API_IP}
   port: ${API_PORT}
