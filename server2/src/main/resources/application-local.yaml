@@ -1,0 +1,32 @@
+spring:
+  profiles:
+    active: local
+
+  servlet:
+    multipart:
+      maxFileSize: 10MB
+      maxRequestSize: 10MB
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: 20181029
+
+api:
+  ip: 127.0.0.1
+  port: 5000
+  method: http
+
+web:
+  ip: 127.0.0.1
+  port: 3000
+  method: http
+
+---
+logging:
+  level:
+    root: info
+
+server:
+  port: 8082
+

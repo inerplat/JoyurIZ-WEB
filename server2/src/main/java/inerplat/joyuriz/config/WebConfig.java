@@ -1,4 +1,4 @@
-package inerplat.joyuriz;
+package inerplat.joyuriz.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         // log.info(String.format("%s://%s:%s", webMethod, webIp, webPort));
         registry.addMapping("/**")
-                .allowedOrigins(String.format("%s://%s", webMethod, webIp))
+                .allowedOriginPatterns("*")
                 .allowedMethods("POST");
     }
 }

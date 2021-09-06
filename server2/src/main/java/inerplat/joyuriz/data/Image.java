@@ -4,53 +4,41 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 
-import javax.persistence.*;
+import java.io.Serializable;
 
 
-@Entity(name="feedback")
+// @Entity(name="feedback")
+@RedisHash("feedback")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Image {
+public class Image implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    @Column(name = "hash")
     private String hash;
 
-    @Column(name = "face_top")
     private Integer top;
 
-    @Column(name = "face_right")
     private Integer right;
 
-    @Column(name = "face_bottom")
     private Integer bottom;
 
-    @Column(name = "face_left")
     private Integer left;
 
-
-    @Column(name = "predict")
     private String predict;
 
-    @Column(name = "vote_chaewon")
     @Setter
     private Integer chaewon;
 
-    @Column(name = "vote_yuri")
     @Setter
     private Integer yuri;
 
-    @Column(name = "vote_yaena")
     @Setter
     private Integer yaena;
 
-    @Column(name = "path")
     private String path;
 
-    @Column(name = "request")
     @Setter
     private Integer request;
 
