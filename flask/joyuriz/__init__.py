@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restx import Api
 from joyuriz.router.api.v1.predict import predict_ns
+from joyuriz.router.health import health_ns
 from joyuriz.error.handler import FaceError
 from werkzeug.exceptions import HTTPException
 
@@ -9,7 +10,7 @@ app = Flask(__name__)
 api = Api(app, version='1.0', title='Joyuriz API', description='Joyuriz API', doc=False)
 
 api.add_namespace(predict_ns)
-
+api.add_namespace(health_ns)
 
 @app.errorhandler(Exception)
 def handle_error(message):
