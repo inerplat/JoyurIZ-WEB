@@ -1,4 +1,4 @@
-FROM pytorch/pytorch:1.7.1-cuda11.0-cudnn8-runtime AS installer
+FROM python:3.9 AS installer
 
 WORKDIR "/app"
 
@@ -7,6 +7,7 @@ RUN apt-get install build-essential cmake pkg-config -y
 RUN apt-get install libx11-dev libatlas-base-dev -y
 RUN apt-get install libgtk-3-dev libboost-python-dev -y
 
+RUN pip install --no-cache-dir torch==1.9.0 torchvision==0.10.0
 RUN pip install --no-cache-dir dlib
 RUN pip install --no-cache-dir numpy
 RUN pip install --no-cache-dir flask
@@ -19,7 +20,8 @@ FROM installer
 WORKDIR "/app"
 
 COPY ./joyuriz ./joyuriz
+#COPY ./models ./models
 COPY ./app.py ./
 
-CMD ["/bin/bash", "-c", "gunicorn -b 0.0.0.0:5000 -w 4 app" ]
+CMD ["/bin/bash", "-c", "gunicorn -b 0.0.0.0:5000 -w 2 app" ]
 #CMD ["python", "app.py"]
