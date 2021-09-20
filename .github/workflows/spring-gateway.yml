@@ -1,4 +1,4 @@
-name: CI
+name: spring-gateway
 
 on:
   create:
