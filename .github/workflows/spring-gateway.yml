@@ -8,7 +8,7 @@ on:
   
 jobs:
   qemu-build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Docker Login
         uses: docker/login-action@v1.10.0
