@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
   
 jobs:
-  qemu:
-    runs-on: ubuntu-latest
+  qemu-build:
+    runs-on: self-hosted
     steps:
       - name: Docker Login
         uses: docker/login-action@v1.10.0
