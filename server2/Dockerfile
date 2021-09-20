@@ -6,7 +6,7 @@ COPY . .
 
 RUN chmod +x gradlew
 
-RUN ./gradlew clean build
+RUN ./gradlew clean build --stacktrace
 RUN cp build/libs/*.jar app.jar
 
 FROM openjdk:16-slim
