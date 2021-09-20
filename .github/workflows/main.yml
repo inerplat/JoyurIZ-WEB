@@ -41,4 +41,4 @@ jobs:
         run: echo ${{ steps.qemu.outputs.platforms }}
       -
         name: Docker Build
-        run: docker buildx build --platform linux/arm64 --platform linux/amd64 -f ./server2 -t inerplat/joyuriz-springboot:${{ steps.vars.outputs.tag }} --push ./server2
+        run: docker buildx build --platform linux/arm64 --platform linux/amd64 -f ./server2/Dockerfile -t inerplat/joyuriz-springboot:${{ steps.vars.outputs.tag }} --push ./server2
