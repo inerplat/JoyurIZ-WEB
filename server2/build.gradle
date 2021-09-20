@@ -6,7 +6,7 @@ plugins {
 
 group = 'inerplat'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '16'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
