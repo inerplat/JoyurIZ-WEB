@@ -25,6 +25,7 @@ jobs:
         name: Check output
         env:
           RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+        run: echo ${{ RELEASE_VERSION }}
       - 
         name: Set up QEMU
         id: qemu
