@@ -66,9 +66,9 @@ public class RequestFilter implements Filter {
     }
 
     private Object getHeaders(HttpServletRequest request) {
-        Map headerMap = new HashMap<>();
+        Map<Object, Object> headerMap = new HashMap<>();
 
-        Enumeration headerArray = request.getHeaderNames();
+        Enumeration<String> headerArray = request.getHeaderNames();
         while (headerArray.hasMoreElements()) {
             String headerName = (String) headerArray.nextElement();
             headerMap.put(headerName, request.getHeader(headerName));
