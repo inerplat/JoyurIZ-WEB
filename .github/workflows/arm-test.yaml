@@ -81,7 +81,8 @@ jobs:
           username: ${{ secrets.DOCKER_ID }}
           password: ${{ secrets.DOCKER_TOKEN }}
       - name: test
-        run: find .
+        run: mv run server2/
       -
+        working-directory: server2
         name: Docker Build
-        run: docker buildx build --platform linux/arm64,linux/amd64 -f server2/action.Dockerfile -t inerplat/joyuriz-springboot:${{ steps.vars.outputs.tag }} --push server2
+        run: docker buildx build --platform linux/arm64,linux/amd64 -f action.Dockerfile -t inerplat/joyuriz-springboot:${{ steps.vars.outputs.tag }} --push .
