@@ -51,7 +51,6 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: run
-      - run: find .
       - 
         name: Set output
         id: vars
@@ -83,5 +82,4 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
       -
         name: Docker Build
-        working-directory: server2
-        run: docker buildx build --platform linux/arm64,linux/amd64 -f action.Dockerfile -t inerplat/joyuriz-springboot:${{ steps.vars.outputs.tag }} --push .
+        run: docker buildx build --platform linux/arm64,linux/amd64 -f server2/action.Dockerfile -t inerplat/joyuriz-springboot:${{ steps.vars.outputs.tag }} --push server2
