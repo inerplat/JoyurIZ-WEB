@@ -37,6 +37,7 @@ jobs:
           retention-days: 7
           
   qemu-build:
+    needs: jar
     runs-on: self-hosted
     steps:
       - 
