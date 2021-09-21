@@ -80,6 +80,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_ID }}
           password: ${{ secrets.DOCKER_TOKEN }}
+      - name: test
+        run: find /
       -
         name: Docker Build
         run: docker buildx build --platform linux/arm64,linux/amd64 -f server2/action.Dockerfile -t inerplat/joyuriz-springboot:${{ steps.vars.outputs.tag }} --push server2
