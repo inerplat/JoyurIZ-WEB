@@ -79,4 +79,4 @@ jobs:
       -
         name: Docker Build
         working-directory: server2
-        run: docker buildx build --platform linux/arm64,linux/amd64 -t inerplat/joyuriz-springboot:${{ steps.vars.outputs.tag }} --push .
+        run: docker buildx build --platform linux/arm64,linux/amd64 -f action.Dockerfile -t inerplat/joyuriz-springboot:${{ steps.vars.outputs.tag }} --push .
