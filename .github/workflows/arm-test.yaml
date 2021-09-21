@@ -21,19 +21,22 @@ jobs:
           distribution: adopt
       - 
         name: Add +x permission
+        working-directory: server2
         run: chmod +x gradlew
       - 
         name: Gradle Build
+        working-directory: server2
         run: ./gradlew clean build
       -
         name: Move app file
+        working-directory: server2
         run: mv ./build/libs/joyuriz*.jar ./app.jar
       - 
         name: Upload jar file to Artifact
         uses: actions/upload-artifact@master
         with:
           name: run
-          path: ./app.jar
+          path: ./server2/app.jar
           retention-days: 7
           
   qemu-build:
@@ -48,6 +51,7 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: run
+      - run: find .
       - 
         name: Set output
         id: vars
