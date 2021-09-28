@@ -44,4 +44,4 @@ jobs:
       -
         name: Docker Build
         working-directory: flask
-        run: docker buildx build --platform linux/arm64,linux/amd64 -t inerplat/joyuriz-flask-base:latest --push .
+        run: docker buildx build --platform linux/arm64,linux/amd64 -f base.Dockerfile -t inerplat/joyuriz-flask-base:latest --push .
