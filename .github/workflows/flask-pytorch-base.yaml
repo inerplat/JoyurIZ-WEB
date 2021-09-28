@@ -1,9 +1,6 @@
 name: flask-pytorch-base
 
 on:
-  create:
-    tags:
-      - v*
   workflow_dispatch:
   
 jobs:
@@ -47,4 +44,4 @@ jobs:
       -
         name: Docker Build
         working-directory: flask
-        run: docker buildx build --platform linux/arm64,linux/amd64 -t inerplat/joyuriz-flask-base:${{ steps.vars.outputs.tag }} --push .
+        run: docker buildx build --platform linux/arm64,linux/amd64 -t inerplat/joyuriz-flask-base:latest --push .
