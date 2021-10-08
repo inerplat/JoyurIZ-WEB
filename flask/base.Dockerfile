@@ -3,8 +3,6 @@ FROM python:3.9
 WORKDIR "/app"
 
 RUN apt-get update
-RUN apt-get install software-properties-common
-RUN apt-get update
 
 RUN apt-get install build-essential cmake pkg-config -y
 RUN apt-get install libx11-dev libatlas-base-dev -y
