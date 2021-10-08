@@ -31,7 +31,7 @@ jobs:
           platforms: all
       -
         name: Set up Docker Context
-        run: /usr/bin/docker context create multi-arch-builder
+        run: docker context create multi-arch-builder
       -
         name: Set up Docker Buildx
         id: buildx
