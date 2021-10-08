@@ -1,0 +1,47 @@
+name: flask-pytorch-base2
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  qemu-build:
+    runs-on: self-hosted
+    steps:
+      - name: Docker Login
+        uses: docker/login-action@v1.10.0
+        with:
+          username: ${{ secrets.DOCKER_ID }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        name: Set output
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - 
+        name: Check output
+        run: echo ${{ steps.vars.outputs.tag }}
+      - 
+        name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: all
+      -
+        name: Set up Docker Context
+        run: /usr/bin/docker context create multi-arch-builder
+      -
+        name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          endpoint: multi-arch-builder
+      - 
+        name: Available platforms
+        run: echo ${{ steps.qemu.outputs.platforms }}
+      -
+        name: Docker Build
+        working-directory: flask
+        run: docker buildx build --platform linux/arm64,linux/amd64 -f base.Dockerfile -t inerplat/joyuriz-flask-base:latest --push .
