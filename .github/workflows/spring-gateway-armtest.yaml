@@ -13,12 +13,16 @@ jobs:
       - 
         name: Checkout
         uses: actions/checkout@v2
-      -  
-        name: Setup Java JDK
-        uses: actions/setup-java@v2.3.0
+
+      - run: |
+          download_url="https://cdn.azul.com/zulu-embedded/bin/zulu11.50.19-ca-jdk11.0.12-linux_aarch64.tar.gz"
+          wget -O $RUNNER_TEMP/java_package.tar.gz $download_url
+      - uses: actions/setup-java@v2
         with:
-          java-version: 11
-          distribution: adopt
+          distribution: 'jdkfile'
+          jdkFile: ${{ runner.temp }}/java_package.tar.gz
+          java-version: '11.0.0'
+          architecture: arm64
       - 
         name: Add +x permission
         working-directory: server2
